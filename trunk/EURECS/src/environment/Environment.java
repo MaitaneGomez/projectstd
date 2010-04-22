@@ -3,5 +3,5 @@ package environment;
 
 public class Environment 
 {
-	 public static final int PUERTO = 2000;
+	 public static final int PORT = 2000;
 }
