@@ -1,20 +1,8 @@
-package util;
+package environment.util;
+
 import java.net.*;
 import java.io.*;
 
-/**
- *
- * <p>Title: Practica 1 Socket</p>
- *
- * <p>Description: Hace transparente la funcionalidad básica de la clase Socket</p>
- *
- * <p>Copyright: Copyright (c) 2005</p>
- *
- * <p>Company: ESIDE</p>
- *
- * @author Susana Pérez
- * @version 1.0
- */
 
 public class SocketManager {
 

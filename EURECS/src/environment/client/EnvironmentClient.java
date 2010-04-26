@@ -1,88 +1,82 @@
 package environment.client;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.Vector;
+import java.net.UnknownHostException;
 
-import environment.Environment;
+import environment.util.SocketManager;
 
 
 public class EnvironmentClient 
 {
-	/** Socket por el que ser realiza la comunicación*/
-	private Socket s;
+	public static void main (String[] args)
+	{
+		try 
+		{
+			Socket cSocket= new Socket("127.0.0.1", 2000);
+			SocketManager sm= new SocketManager(cSocket);
+			
+			/*Aqui ponemos las cosas que pide el cliente, a mano, luego ira en la gui, esto es para saber si esta bien
+			 * 
+			 * 
+			 */
+			
+			//Primer comando, USER username
+			
+			sm.Escribir("USER Stud1");
+			String resp = sm.Leer();
+			System.out.println(resp);
+			
+			//Segundo comando, PASS pasword
+			
+			sm.Escribir("PASS 1111");
+			resp=sm.Leer();
+			System.out.println(resp);
+			
+			//Tercer comando, LISTSENSOR
+			
+			//4 comando, HISTORYLOG sensor_id
+			
+			//5 comando, ON sensor_id
+			
+			//6 comando, OFF sensor_id
+			
+			//7 comando, GPSON
+			
+			//8 comando, GPSOFF
+			
+			//9 comando, GETCURVALUE sensor_id
+			
+			//10 comando, GET_PIC
+			
+			//11 comando, GET_PIC
+			
+			//12 comando, GET_LOC
+			
+			//13 comando, QUIT
+		
+			sm.Escribir("QUIT");
+			System.out.println(sm.Leer());
+			
+			
+			
+			
+			
+			
+			
+			sm.CerrarStreams();
+			sm.CerrarSocket();
+			
+			
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
-	/** Filtro de recogida de datos del socket. */
-	private BufferedReader br;
 
-	/** Filtro de escritura de datos al socket. */
-	private DataOutputStream dos;
-	
-	
-	 public EnvironmentClient(String IP) 
-	 {
-		    try
-		    {
-		        s = new Socket(IP,Environment.PORT);
-		        br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-		        dos = new DataOutputStream(s.getOutputStream());
-		    }
-		    catch(IOException ioe)
-		    {
-		      System.err.println(ioe);
-		    }
-	}
-	 
-	 /**
-	  * Envía las primitivas USUARIO y CLAVE al servidor con los valores apropiados.
-	  * @param u Nombre del usuario con el cual conectar.
-	  * @param c Clave con la cual conectar.
-	  * @return true si se ha permitido el acceso, false en caso contrario.
-	  */
-	 
-	 public boolean entrar(String u, String p)
-	 {
-		    try
-		    {
-		      dos.writeBytes("user " + u + "\r\n");
-		      System.out.println(br.readLine()); 
-		      dos.writeBytes("password " + p + "\r\n");
-		      String r = br.readLine();
-		      System.out.println(r);
-		      
-		      if (r.startsWith("201"))
-		        return true;
-		      else
-		        return false;
-		      
-		    }
-		    catch(IOException ioe)
-		    {
-		      System.err.println(ioe);
-		    }
-		    return false;
-	}
-	 
-	 /**
-	  * Envía la primitiva SALIR al servidor y realiza la desconexión.
-	  */
-	 
-	 public void exit()
-	 {
-		    try
-		    {
-		      dos.writeBytes("exit\r\n");
-		      System.out.println(br.readLine());
-		      dos.close();
-		      br.close();
-		      s.close();
-		    }
-		    catch(IOException ioe)
-		    {
-		      System.err.println(ioe);
-		    }
-		  }
-	}
+}
