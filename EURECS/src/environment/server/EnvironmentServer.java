@@ -1,38 +1,91 @@
 package environment.server;
 
-	import java.net.*;
-	import java.io.*;
-	import java.util.*;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
-public class EnvironmentServer
+import environment.util.SocketManager;
+
+
+
+public class EnvironmentServer 
 {
-	  /** Socket por el que se realiza la comunicación. */
-	  private Socket s;
-
-	  /** Filtro de recogida de datos del socket. */
-	  private BufferedReader br;
-
-	  /** Filtro de escritura de datos al socket. */
-	  private DataOutputStream dos;
 	
-	  /**
-	  * Constructor de EnvironmentServer, para atender a un cliente.
-	  */
-	  public EnvironmentServer(Socket sc) {
-	    try{
-	      s = sc;
-	      br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-	      dos = new DataOutputStream(s.getOutputStream());
-	    }catch(IOException ioe){
-	      System.err.println(ioe);
-	    }
-	  }
-	  /**
-	  * Implementación del proceso de comunicación con el cliente.
-	  */
-	  
-	  /* LO DE LOS ESTADOS*/
-	  public void run(){
-	    
-	  }
+	private SocketManager sm;
+	private int state;
+	private String user;
+	
+	public EnvironmentServer(SocketManager sManager) throws Exception 
+	{
+		    sm = sManager;
+	}
+	
+	
+	public void run()  //Lo de los estados
+	{
+		
+		try 
+		{
+			String clientSentence = sm.Leer();
+			//System.out.println("The client says: " + clientSentence);
+			
+			StringTokenizer token = new StringTokenizer(clientSentence);
+			String command = token.nextToken();
+			//Cuidado con los tokens, si no hay nada da error
+			
+			
+			if (command.equalsIgnoreCase("QUIT"))
+			{
+				state=4;
+				sm.Escribir("208 OK Bye");
+			}
+			else 
+			{
+				switch (state)
+				{
+					case 0:
+					{
+						if(command.equalsIgnoreCase("USER"))
+						{
+							user = token.nextToken();
+							//Ahora miramos en la BD si existe el user 
+							//si es que si pues sacamos "201 OK Welcome Mikel"
+							// si no existe en la bd "401 ERR Missing username parameter"							
+						}
+						break;
+					}
+					
+					case 1:
+					{
+					
+						break;
+					}
+					
+					
+					case 2:
+					{
+					
+						break;
+					}
+					
+					case 3:
+					{
+						
+						break;
+					}
+				}
+			}
+			
+			
+			
+			
+		} 
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+	}
 }
