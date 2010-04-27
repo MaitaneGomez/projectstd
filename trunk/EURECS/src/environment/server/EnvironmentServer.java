@@ -30,7 +30,7 @@ public class EnvironmentServer
 			
 			StringTokenizer token = new StringTokenizer(clientSentence);
 			String command = token.nextToken();
-			//Cuidado con los tokens, si no hay nada da error
+			//Cuidado con los tokens, si no hay nada da error, excepcion
 			
 			
 			if (command.equalsIgnoreCase("QUIT"))
