@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.Vector;
 
 
 public class DBManager 
@@ -20,7 +20,7 @@ public class DBManager
 		{
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver"); 
 			//String db = “jdbc:odbc:BD”;
-			String db = "jdbc:odbc:Driver={Microsoft Access Driver (BD.mdb)};DBQ=C:";
+			String db = "jdbc:odbc:Driver={Microsoft Access Driver (DB.mdb)};DBQ=C:";
 			con = DriverManager.getConnection( db, "", "");
 		  
 		}
@@ -55,9 +55,9 @@ public class DBManager
 		try
 		{
 			Statement stmt = con.createStatement();
-			String query = ("SELECT * FROM Users WHERE user = '" + user +"' and Password = '" + password +"'");
+			String query = ("SELECT * FROM Users WHERE user = '" + user +"' and password = '" + password +"'");
 			ResultSet rs = stmt.executeQuery(query);
-			boolean p = rs.next();
+			p = rs.next();
 			rs.close();
 		}
 		catch(SQLException se)
@@ -72,7 +72,7 @@ public class DBManager
 		try 
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Vehicle WHERE ip = '" + ip + "'");
+			String query = ("SELECT * FROM Vehicle WHERE IP = '" + ip + "'");
 			ResultSet rs= stmt.executeQuery(query);
 			p=rs.next();
 			rs.close();			
@@ -84,20 +84,23 @@ public class DBManager
 		}
 		return p;
 	}
-		
 	
-	public List listsensor (String ip)
+	public Vector<String> getListSensor(String ip)
 	{
+		Vector<String> sensors=null;
+		
 		try 
 		{
+			sensors= new Vector<String>();
 			Statement stmt=con.createStatement();
-			String query= ("");
+			String query= ("SELECT * FROM Sensors WHERE ID_V= (SELECT ID FROM Vehicle WHERE IP = '" + ip + "')");
 			ResultSet rs=stmt.executeQuery(query);
+			String sens="";
 			while (rs.next())
 			{
-				
-			}	
-			
+				sens= rs.getString("ID_V") + ";" + rs.getString("NAME") + ";" + rs.getString("STATE");
+				sensors.add(sens);
+			}		
 		} 
 		catch (SQLException e) 
 		{
@@ -105,17 +108,51 @@ public class DBManager
 			e.printStackTrace();
 		}
 		
-		return null;		
+		return sensors;		
+	}
+	
+	public Vector<String> getMeasurements(String idSensor)
+	{
+		Vector<String> measurements=null;
+		
+		try 
+		{
+			measurements= new Vector<String>();
+			Statement stmt=con.createStatement();
+			String query= ("SELECT * FROM Measurements WHERE ID_S ='" + idSensor + "'"); 
+			ResultSet rs=stmt.executeQuery(query);
+			String mens="";
+			while (rs.next())
+			{
+				mens= rs.getString("Date") + ";" + rs.getString("Time") + ";" + rs.getString("Coord") + ":" + rs.getString("Value");
+				measurements.add(mens);
+			}		
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return measurements;		
+	}
+	
+	public boolean getState(String idSensor) 
+	{
+		return false;
 	}
 	
 	
+	public boolean changeState(String idSensor) 
+	{
+		boolean state=true;
+		
+		return state;
+		
+	}
+
 	
-	
-	
- 
-	
-	
-	
+
 	
 	
 
@@ -132,8 +169,4 @@ public class DBManager
 			System.out.println("Disconnection fail");
 		}
 	}
-	
-	
-	
-
 }
