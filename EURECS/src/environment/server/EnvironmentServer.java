@@ -2,6 +2,7 @@ package environment.server;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
+import java.util.Vector;
 
 import bd.DBManager;
 
@@ -18,6 +19,7 @@ public class EnvironmentServer
 	private String password;
 	private DBManager DB;
 	private String ip;
+	private String idSensor;
 	
 	public EnvironmentServer(SocketManager sManager) throws Exception 
 	{
@@ -42,7 +44,7 @@ public class EnvironmentServer
 				if (command.equalsIgnoreCase("QUIT"))
 				{
 					state=5;
-					sm.Escribir("208 OK Bye");
+					sm.Escribir("208 OK Bye \n");
 				}
 				else 
 				{
@@ -65,16 +67,15 @@ public class EnvironmentServer
 									user = token.nextToken();
 									if( DB.checkUser(user))
 									{
-										sm.Escribir("201 OK Welcome " + user);
+										sm.Escribir("201 OK Welcome " + user + "\n");
 										state=1;
 									}
-									else sm.Escribir("400 Username does not exist");
+									else sm.Escribir("400 Username does not exist \n");
 								}
 								catch(Exception e)
 								{	
-									sm.Escribir("401 ERR Missing username parameter ");
-								}
-									
+									sm.Escribir("401 ERR Missing username parameter \n");
+								}		
 							} 
 							break;
 						}
@@ -88,19 +89,19 @@ public class EnvironmentServer
 									password = token.nextToken();
 									if( DB.checkPass(user,password))
 									{
-										sm.Escribir("201 OK Welcome to the system" );
+										sm.Escribir("201 OK Welcome to the system \n" );
 										state=2;
 									}
 									else 
 									{
-										sm.Escribir("402 ERR Authentication error");
+										sm.Escribir("402 ERR Authentication error \n");
 										state=0;
 									}
 									//Ahora miramos en la BD si existe el user 
 								}
 								catch(Exception e)
 								{
-									sm.Escribir("403 ERR Missing password parameter");
+									sm.Escribir("403 ERR Missing password parameter \n");
 								}
 							}
 							break;
@@ -116,18 +117,18 @@ public class EnvironmentServer
 									ip = token.nextToken();
 									if( DB.checkIP(ip))
 									{
-										sm.Escribir("OK, you have choose the following server '" + ip + "'" );
+										sm.Escribir("OK, you have choose the following server '" + ip + "'\n");
 										state=3;
 									}
 									else 
 									{
-										sm.Escribir("ERR, IP not found");
+										sm.Escribir("ERR, IP not found \n");
 										state=2; //No se si mejor pasamos al 0 o al 2
 									}
 								}
 								catch(Exception e)
 								{
-									sm.Escribir("ERR Missing ip parameter");
+									sm.Escribir("ERR Missing ip parameter \n");
 								}
 							}
 							break;
@@ -135,13 +136,78 @@ public class EnvironmentServer
 						
 						case 3:
 						{
+													
 							if (command.equalsIgnoreCase("LISTSENSOR"))
 							{
+								Vector<String> v=null;
+								int i=0;
+								
+								if ((v=DB.getListSensor(ip)) != null)
+								{
+									sm.Escribir("112 OK Start of sensor list \n");
+									for (i=0; i< v.size(); i++)
+									{
+										sm.Escribir(v.get(i)+ "\n");
+									}
+									sm.Escribir("212 OK End of sensor list \n");
+								}
 								
 							}
-						
+							if (command.equalsIgnoreCase("HISTORYLOG"))
+							{
+								try
+								{
+									idSensor = token.nextToken(); //Cuidado con los tipos
+									
+									Vector<String> v=null;
+									int i=0;
+									
+									if ((v=DB.getMeasurements(idSensor)) != null)
+									{
+										sm.Escribir("113 OK Start of measurement list \n");
+										for (i=0; i< v.size(); i++)
+										{
+											sm.Escribir(v.get(i)+ "\n");
+										}
+										sm.Escribir("212 OK End of measurement list \n");
+									}
+									else 
+									{
+										sm.Escribir("414 ERR Unknown sensor \n");
+									}
+									
+								}
+								catch(Exception e)
+								{
+									sm.Escribir("415 ERR Missing sensor id parameter \n");
+								}
+							}
 							
-							break;
+							if (command.equals("ON"))
+					  		{
+					  			try
+					  			{
+					  				boolean p=false;
+						  			idSensor = token.nextToken();
+						  			p = DB.getState(idSensor);
+						  			if(p == true)
+						  			{
+						  				sm.Escribir("418 ERROR Sensor already activated" + "\n");
+						  			}
+						  			else
+						  			{
+						  				DB.changeState(idSensor);
+						  				sm.Escribir("203 OK Sensor activated \n");
+						  			}					  			
+						  		}
+					  			
+					  			catch(Exception e)
+					  			{
+					  				sm.Escribir("ERR, missing sensor parameter \n");
+					  			}
+					  		}
+							
+						break;
 						}
 						case 4:
 						{
