@@ -16,8 +16,8 @@ public class EnvironmentServer
 	private int state;
 	private String user;
 	private String password;
-	private String listsensor;
 	private DBManager DB;
+	private String ip;
 	
 	public EnvironmentServer(SocketManager sManager) throws Exception 
 	{
@@ -37,11 +37,11 @@ public class EnvironmentServer
 			String command = token.nextToken();
 			//Cuidado con los tokens, si no hay nada da error, excepcion
 			
-			while(state!=4)
+			while(state!=5)
 			{
 				if (command.equalsIgnoreCase("QUIT"))
 				{
-					state=4;
+					state=5;
 					sm.Escribir("208 OK Bye");
 				}
 				else 
@@ -50,6 +50,10 @@ public class EnvironmentServer
 					{
 						case 0:
 						{
+							user = token.nextToken();
+							//Ahora miramos en la BD si existe el user 
+							//si es que si pues sacamos "201 OK Welcome Mikel"
+							// si no exis<te en la bd "401 ERR Missing username parameter"							
 							if(command.equalsIgnoreCase("USER"))
 							{
 								
@@ -105,18 +109,43 @@ public class EnvironmentServer
 						
 						case 2:
 						{
-							if(command.equalsIgnoreCase("LISTSENSOR"))
+							if(command.equalsIgnoreCase("IP"))
 							{
-								
+								try
+								{
+									ip = token.nextToken();
+									if( DB.checkIP(ip))
+									{
+										sm.Escribir("OK, you have choose the following server '" + ip + "'" );
+										state=3;
+									}
+									else 
+									{
+										sm.Escribir("ERR, IP not found");
+										state=2; //No se si mejor pasamos al 0 o al 2
+									}
+								}
+								catch(Exception e)
+								{
+									sm.Escribir("ERR Missing ip parameter");
+								}
 							}
-						
 							break;
 						}
 						
 						case 3:
 						{
+							if (command.equalsIgnoreCase("LISTSENSOR"))
+							{
+								
+							}
+						
 							
 							break;
+						}
+						case 4:
+						{
+							
 						}
 					}
 				}
