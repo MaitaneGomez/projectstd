@@ -35,6 +35,8 @@ public class EnvironmentClient
 			
 			//Tercer comando, LISTSENSOR
 			
+			
+			
 			//4 comando, HISTORYLOG sensor_id
 			
 			//5 comando, ON sensor_id

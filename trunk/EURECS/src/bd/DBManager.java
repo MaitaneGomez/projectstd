@@ -6,10 +6,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
 
 public class DBManager 
 {
 	private Connection con;
+	private boolean p;
 		
 	public DBManager()
 	{
@@ -36,21 +39,15 @@ public class DBManager
 			Statement stmt = con.createStatement();
 			String query = ("SELECT * FROM Users WHERE user = '" +user +"'");
 			ResultSet rs = stmt.executeQuery(query);
-			boolean u = rs.next();
+			p = rs.next();
 			rs.close();
-			return u;	
-	
-			
 		}
 		catch(SQLException se)
 		{
-			
-			System.out.println("Problem with the data base with the user");
-			return false;
-			
+			System.out.println("Problem in the data base with the user");			
 		}
 		
-		
+		return p;		
 	}
 	
 	public boolean checkPass(String user,String password)
@@ -58,22 +55,58 @@ public class DBManager
 		try
 		{
 			Statement stmt = con.createStatement();
-			String query = ("SELECT * FROM Users WHERE user = '" +user +"' and Password = '" +password+"'");
+			String query = ("SELECT * FROM Users WHERE user = '" + user +"' and Password = '" + password +"'");
 			ResultSet rs = stmt.executeQuery(query);
 			boolean p = rs.next();
 			rs.close();
-			
-			return p;
 		}
 		catch(SQLException se)
 		{
-			System.out.println("problem with the data base with the password");
-			return false;
+			System.out.println("Problem in the data base with the password");
 		}
+		return p;
+	}
+	
+	public boolean checkIP (String ip)
+	{
+		try 
+		{
+			Statement stmt= con.createStatement();
+			String query = ("SELECT * FROM Vehicle WHERE ip = '" + ip + "'");
+			ResultSet rs= stmt.executeQuery(query);
+			p=rs.next();
+			rs.close();			
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return p;
 	}
 		
 	
-	
+	public List listsensor (String ip)
+	{
+		try 
+		{
+			Statement stmt=con.createStatement();
+			String query= ("");
+			ResultSet rs=stmt.executeQuery(query);
+			while (rs.next())
+			{
+				
+			}	
+			
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;		
+	}
 	
 	
 	
