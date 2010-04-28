@@ -196,16 +196,54 @@ public class EnvironmentServer
 						  			}
 						  			else
 						  			{
-						  				DB.changeState(idSensor);
-						  				sm.Escribir("203 OK Sensor activated \n");
+						  				DB.changeState(idSensor,p);
+						  				
 						  			}					  			
 						  		}
 					  			
 					  			catch(Exception e)
 					  			{
 					  				sm.Escribir("ERR, missing sensor parameter \n");
+					  				//sm.Escribir("417 ERR Unknown sensor \n");
 					  			}
 					  		}
+							if (command.equals("OFF"))
+					  		{
+					  			try
+					  			{
+					  				boolean p=false;
+						  			idSensor = token.nextToken();
+						  			p = DB.getState(idSensor);
+						  			if(p == true)
+						  			{
+						  				sm.Escribir("OK Sensor desactivated" + "\n");
+						  			}
+						  			else
+						  			{
+						  				DB.changeState(idSensor,p);
+						  				sm.Escribir("419 ERR Sensor already activated \n");
+						  			}					  			
+						  		}
+					  			
+					  			catch(Exception e)
+					  			{
+					  				sm.Escribir("ERR, missing sensor parameter \n");
+					  				//sm.Escribir("417 ERR Unknown sensor \n");
+					  			}
+					  		}
+							if (command.equals("GPSON"))
+							{
+								try
+					  			{
+									
+					  			}
+								catch(Exception e)
+					  			{
+					  				
+					  			}
+							}
+							
+							//Mañana o a la noche hago los de GPSon!!!
 							
 						break;
 						}

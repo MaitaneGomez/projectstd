@@ -137,17 +137,65 @@ public class DBManager
 		return measurements;		
 	}
 	
-	public boolean getState(String idSensor) 
+	
+	//Nombres de las BD a revisar!!!!!
+	public boolean getState(String idSensor)
 	{
-		return false;
+		try 
+		{
+			Statement stmt= con.createStatement();
+			String query = ("SELECT * FROM Sensor WHERE idSensor = '" + idSensor + "'");
+			ResultSet rs= stmt.executeQuery(query);
+			String state="";
+			if (rs.next())
+				state = rs.getString("state");
+			if (state.equalsIgnoreCase("ON"))
+				p = true;
+			else p = false;
+
+			rs.close();			
+		} 
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			System.out.println("Problem in the data base with the State");
+		}
+		
+		
+		return p;
 	}
 	
-	
-	public boolean changeState(String idSensor) 
+	//Habias puesto que devolvia booelean y lo he cambiado a void, miralo!Que nose porque habias
+	//puesto lo otro.
+	public  void changeState(String idSensor,boolean p) 
 	{
-		boolean state=true;
 		
-		return state;
+		try
+		{
+			Statement stmt= con.createStatement();
+			//String query = ("SELECT * FROM Sensors WHERE idSensor = '" + idSensor + "'");
+			//ResultSet rs= stmt.executeQuery(query);
+			//String state="";
+			
+			//if (rs.next())
+			//	state = rs.getString("state");
+			
+			
+			if (p = true)
+			{
+				stmt.executeUpdate("UPDATE Sensors SET State = 'OFF' WHERE idSensor = '" + idSensor);
+			}
+			else
+			{
+				stmt.executeUpdate("UPDATE Sensors SET State = 'ON' WHERE idSensor = '" + idSensor);
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("Problem in the data base with the change of the State");
+		}
+
 		
 	}
 
@@ -170,3 +218,5 @@ public class DBManager
 		}
 	}
 }
+
+	
