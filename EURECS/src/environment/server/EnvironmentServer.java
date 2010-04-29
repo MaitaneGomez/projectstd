@@ -192,16 +192,21 @@ public class EnvironmentServer implements Runnable
 					  			{
 					  				boolean p=false;
 						  			idSensor = token.nextToken();
-						  			p = DB.getState(idSensor);
-						  			if(p)
+						  			if(DB.checkSensor(idSensor))
 						  			{
-						  				sm.Escribir("418 ERROR Sensor already activated" + "\n");
+							  			p = DB.getState(idSensor);
+							  			if(p)
+							  			{
+							  				sm.Escribir("418 ERROR Sensor already activated" + "\n");
+							  			}
+							  			else
+							  			{
+							  				DB.changeState(idSensor,p);
+							  				//y si el sensor que ha escrito esta mal?
+							  				
+							  			}	
 						  			}
-						  			else
-						  			{
-						  				DB.changeState(idSensor,p); //y si el sensor que ha escrito esta mal?
-						  				
-						  			}					  			
+						  			else sm.Escribir("417 ERR Unknown sensor");
 						  		}
 					  			
 					  			catch(Exception e)
@@ -215,16 +220,20 @@ public class EnvironmentServer implements Runnable
 					  			{
 					  				boolean p=false;
 						  			idSensor = token.nextToken();
-						  			p = DB.getState(idSensor);
-						  			if(p)
+						  			if(DB.checkSensor(idSensor))
 						  			{
-						  				DB.changeState(idSensor,p);
-						  				sm.Escribir("OK Sensor desactivated" + "\n");
+							  			p = DB.getState(idSensor);
+							  			if(p)
+							  			{
+							  				DB.changeState(idSensor,p);
+							  				sm.Escribir("OK Sensor desactivated" + "\n");
+							  			}
+							  			else
+							  			{
+							  				sm.Escribir("419 ERR Sensor already desactivated \n");
+							  			}	
 						  			}
-						  			else
-						  			{
-						  				sm.Escribir("419 ERR Sensor already desactivated \n");
-						  			}					  			
+						  			else sm.Escribir("417 ERR Unknown sensor");
 						  		}
 					  			
 					  			catch(Exception e)
@@ -234,6 +243,7 @@ public class EnvironmentServer implements Runnable
 					  		}
 							if (command.equals("GPSON"))
 							{
+								boolean p=false;
 								boolean gps = DB.getGps(ip);
 						  		if(gps)
 						  		{
@@ -241,17 +251,18 @@ public class EnvironmentServer implements Runnable
 						  		}
 						  		else
 						  		{
-						  			DB.changeGps(ip);
+						  			DB.changeGps(ip,p);
 						  			sm.Escribir("205 OK GPS activated \n");
 						  		}	
 							}
 							
 							if (command.equals("GPSOFF"))
 							{
+								boolean p=false;
 								boolean gps = DB.getGps(ip);
 						  		if(gps)
 						  		{
-						  			DB.changeGps(ip);
+						  			DB.changeGps(ip,p);
 						  			sm.Escribir("206 OK GPS desactivated \n");
 						  			
 						  		}
@@ -260,12 +271,33 @@ public class EnvironmentServer implements Runnable
 						  			sm.Escribir("420 ERR GPS already desactivated \n");
 						  		}	
 							}
-							
-							
-							
-							
-							
-						break;
+							if (command.equals("GET_CURVALUE"))
+							{
+								try
+					  			{
+					  				boolean p=false;
+						  			idSensor = token.nextToken();
+						  			if(DB.checkSensor(idSensor))
+						  			{
+							  			p = DB.getState(idSensor);
+							  			if(!p)
+							  			{
+							  				
+							  				sm.Escribir("Sensor is not active");
+							  			}
+							  			else
+							  			{
+							  				sm.Escribir();
+							  			}	
+						  			}
+						  			else sm.Escribir("414 ERR Unknown sensor");
+						  		}
+								catch(Exception e)
+								{
+									sm.Escribir("415 ERR Missing  parameter sensor_id \n");
+								}
+							}
+				break;
 						}
 						case 4:
 						{
@@ -274,12 +306,7 @@ public class EnvironmentServer implements Runnable
 					}
 				}
 			}
-		}
-				
-	
-				
-				
-			
+		}		
 		catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
