@@ -10,14 +10,14 @@ import environment.util.SocketManager;
 
 
 
-public class EnvironmentServer 
+public class EnvironmentServer implements Runnable
 {
 	
 	private SocketManager sm;
 	private int state;
 	private String user;
 	private String password;
-	private DBManager DB;
+	private DBManager DB=new DBManager();
 	private String ip;
 	private String idSensor;
 	
@@ -32,19 +32,22 @@ public class EnvironmentServer
 		
 		try 
 		{
-			String clientSentence = sm.Leer();
-			System.out.println("The client says: " + clientSentence);
-			
-			StringTokenizer token = new StringTokenizer(clientSentence);
-			String command = token.nextToken();
-			//Cuidado con los tokens, si no hay nada da error, excepcion
-			
+						
 			while(state!=5)
 			{
+				String clientSentence = sm.Leer();
+				System.out.println("The client says: " + clientSentence);
+				
+				//Dividir en tokens
+				//Cuidado con los tokens, si no hay nada da error, excepcion
+				StringTokenizer token = new StringTokenizer(clientSentence);
+				String command = token.nextToken();
+				
+				
 				if (command.equalsIgnoreCase("QUIT"))
 				{
-					state=5;
 					sm.Escribir("208 OK Bye \n");
+					state=5;
 				}
 				else 
 				{
@@ -190,13 +193,13 @@ public class EnvironmentServer
 					  				boolean p=false;
 						  			idSensor = token.nextToken();
 						  			p = DB.getState(idSensor);
-						  			if(p == true)
+						  			if(p)
 						  			{
 						  				sm.Escribir("418 ERROR Sensor already activated" + "\n");
 						  			}
 						  			else
 						  			{
-						  				DB.changeState(idSensor,p);
+						  				DB.changeState(idSensor,p); //y si el sensor que ha escrito esta mal?
 						  				
 						  			}					  			
 						  		}
@@ -204,7 +207,6 @@ public class EnvironmentServer
 					  			catch(Exception e)
 					  			{
 					  				sm.Escribir("ERR, missing sensor parameter \n");
-					  				//sm.Escribir("417 ERR Unknown sensor \n");
 					  			}
 					  		}
 							if (command.equals("OFF"))
@@ -214,36 +216,54 @@ public class EnvironmentServer
 					  				boolean p=false;
 						  			idSensor = token.nextToken();
 						  			p = DB.getState(idSensor);
-						  			if(p == true)
+						  			if(p)
 						  			{
+						  				DB.changeState(idSensor,p);
 						  				sm.Escribir("OK Sensor desactivated" + "\n");
 						  			}
 						  			else
 						  			{
-						  				DB.changeState(idSensor,p);
-						  				sm.Escribir("419 ERR Sensor already activated \n");
+						  				sm.Escribir("419 ERR Sensor already desactivated \n");
 						  			}					  			
 						  		}
 					  			
 					  			catch(Exception e)
 					  			{
 					  				sm.Escribir("ERR, missing sensor parameter \n");
-					  				//sm.Escribir("417 ERR Unknown sensor \n");
 					  			}
 					  		}
 							if (command.equals("GPSON"))
 							{
-								try
-					  			{
-									
-					  			}
-								catch(Exception e)
-					  			{
-					  				
-					  			}
+								boolean gps = DB.getGps(ip);
+						  		if(gps)
+						  		{
+						  			sm.Escribir("409 ERROR GPS already activated \n");
+						  		}
+						  		else
+						  		{
+						  			DB.changeGps(ip);
+						  			sm.Escribir("205 OK GPS activated \n");
+						  		}	
 							}
 							
-							//Mañana o a la noche hago los de GPSon!!!
+							if (command.equals("GPSOFF"))
+							{
+								boolean gps = DB.getGps(ip);
+						  		if(gps)
+						  		{
+						  			DB.changeGps(ip);
+						  			sm.Escribir("206 OK GPS desactivated \n");
+						  			
+						  		}
+						  		else
+						  		{
+						  			sm.Escribir("420 ERR GPS already desactivated \n");
+						  		}	
+							}
+							
+							
+							
+							
 							
 						break;
 						}

@@ -195,7 +195,15 @@ public class DBManager
 			e.printStackTrace();
 			System.out.println("Problem in the data base with the change of the State");
 		}
-
+	}
+	
+	public boolean getGps(String ip) 
+	{
+		return false;
+	}
+	
+	public void changeGps(String ip) 
+	{
 		
 	}
 
@@ -217,6 +225,7 @@ public class DBManager
 			System.out.println("Disconnection fail");
 		}
 	}
+
 }
 
 	
