@@ -173,13 +173,6 @@ public class DBManager
 		try
 		{
 			Statement stmt= con.createStatement();
-			//String query = ("SELECT * FROM Sensors WHERE idSensor = '" + idSensor + "'");
-			//ResultSet rs= stmt.executeQuery(query);
-			//String state="";
-			
-			//if (rs.next())
-			//	state = rs.getString("state");
-			
 			
 			if (p = true)
 			{
@@ -197,20 +190,96 @@ public class DBManager
 		}
 	}
 	
+	public boolean checkSensor (String idSensor)
+	{
+		try 
+		{
+			Statement stmt= con.createStatement();
+			String query = ("SELECT * FROM Sensor WHERE id_s = '" + idSensor + "'");
+			ResultSet rs= stmt.executeQuery(query);
+			p=rs.next();
+			rs.close();			
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return p;
+	}
+	
 	public boolean getGps(String ip) 
 	{
-		return false;
-	}
-	
-	public void changeGps(String ip) 
-	{
+		try
+		{
+			Statement stmt= con.createStatement();
+			String query = ("SELECT * FROM Gps WHERE GPS_ID = ( SELECT GPS_ID FROM Vehicle WHERE IP= '"+ ip + "'");
+			ResultSet rs= stmt.executeQuery(query);
+			String state="";
+			if (rs.next())
+				state = rs.getString("state");
+			if (state.equalsIgnoreCase("ON"))
+				p = true;
+			else p = false;
+			rs.close();	
+		}
 		
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			System.out.println("Problem in the data base with the State");
+		}
+		return p;
+	}
+	
+	public void changeGps(String ip,boolean p) 
+	{
+		try
+		{
+			Statement stmt= con.createStatement();
+			
+			if (p = true)
+			{
+				stmt.executeUpdate("UPDATE Gps SET State = 'OFF' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip);
+			}
+			else
+			{
+				stmt.executeUpdate("UPDATE Gps SET State = 'ON' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip);
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("Problem in the data base with the change of the State");
+		}
+	}
+	
+	public String getCurvalue(String idSensor)
+	{
+		try 
+		{
+			String curvalue;
+			Statement stmt= con.createStatement();
+			String query = ("SELECT * FROM Sensor WHERE id_s = '" + idSensor + "'");
+			ResultSet rs= stmt.executeQuery(query);
+			while (rs.next())
+			{
+			
+				curvalue= rs.getString("Date") + ";" + rs.getString("Time") + ";" + rs.getString("Coord") + ":" + rs.getString("Value");
+				
+			}		
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return curvalue;
+		//Es demasiado tarde ya para que me entere de que es lo que he hecho mal aqui.........
+		
+
 	}
 
-	
-
-	
-	
 
 	
 	public void disconnect()
