@@ -287,7 +287,7 @@ public class EnvironmentServer implements Runnable
 							  			}
 							  			else
 							  			{
-							  				sm.Escribir();
+							  				sm.Escribir("114 OK" + DB.getCurvalue(idSensor));
 							  			}	
 						  			}
 						  			else sm.Escribir("414 ERR Unknown sensor");
@@ -296,6 +296,18 @@ public class EnvironmentServer implements Runnable
 								{
 									sm.Escribir("415 ERR Missing  parameter sensor_id \n");
 								}
+							}
+							if(command.equals("GET_PIC"))
+							{
+								boolean gps = DB.getGps(ip);
+						  		if(gps)
+						  		{
+						  			//sacar coordenadas
+						  		}
+						  		else
+						  		{
+						  			sm.Escribir("420 ERR GPS is not active \n");
+						  		}
 							}
 				break;
 						}

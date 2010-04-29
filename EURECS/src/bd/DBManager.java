@@ -258,27 +258,31 @@ public class DBManager
 	{
 		try 
 		{
-			String curvalue;
+			String curvalue="";
 			Statement stmt= con.createStatement();
 			String query = ("SELECT * FROM Sensor WHERE id_s = '" + idSensor + "'");
 			ResultSet rs= stmt.executeQuery(query);
 			while (rs.next())
 			{
 			
-				curvalue= rs.getString("Date") + ";" + rs.getString("Time") + ";" + rs.getString("Coord") + ":" + rs.getString("Value");
-				
+				//curvalue= rs.getString("Date") + ";" + rs.getString("Time") + ";" + rs.getString("Coord") + ":" + rs.getString("Value");
+				curvalue= rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getString(4);
 			}		
+			
 		} 
 		catch (SQLException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return curvalue;
 		//Es demasiado tarde ya para que me entere de que es lo que he hecho mal aqui.........
 		
 
 	}
+	
+	public String getCoordinates()
 
 
 	
