@@ -165,8 +165,10 @@ public class DBManager
 		return p;
 	}
 	
-	//Habias puesto que devolvia booelean y lo he cambiado a void, miralo!Que nose porque habias
-	//puesto lo otro.
+	//Habias puesto que devolvia boolean y lo he cambiado a void, miralo!Que nose porque habias
+	//puesto lo otro. 
+	
+	//Lo puse por si queriamos validar que esta bien o mal
 	public  void changeState(String idSensor,boolean p) 
 	{
 		
@@ -255,10 +257,10 @@ public class DBManager
 	}
 	
 	public String getCurvalue(String idSensor)
-	{
+	{ 
+		String curvalue="";
 		try 
 		{
-			String curvalue="";
 			Statement stmt= con.createStatement();
 			String query = ("SELECT * FROM Sensor WHERE id_s = '" + idSensor + "'");
 			ResultSet rs= stmt.executeQuery(query);
@@ -283,6 +285,10 @@ public class DBManager
 	}
 	
 	public String getCoordinates()
+	{
+		return null;
+		
+	}
 
 
 	
