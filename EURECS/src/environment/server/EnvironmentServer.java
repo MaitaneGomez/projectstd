@@ -283,7 +283,7 @@ public class EnvironmentServer implements Runnable
 							  			if(!p)
 							  			{
 							  				
-							  				sm.Escribir("Sensor is not active");
+							  				sm.Escribir("416 ERR Sensor is not active");
 							  			}
 							  			else
 							  			{
