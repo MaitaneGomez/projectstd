@@ -6,13 +6,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 
 public class DBManager 
 {
 	private Connection con;
-	private boolean p;
+	private boolean p=false;
 		
 	public DBManager()
 	{
@@ -79,7 +81,6 @@ public class DBManager
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return p;
@@ -104,7 +105,6 @@ public class DBManager
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -130,7 +130,7 @@ public class DBManager
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
@@ -192,19 +192,18 @@ public class DBManager
 		}
 	}
 	
-	public boolean checkSensor (String idSensor)
+	public boolean checkSensor (String idSensor, String ip)
 	{
 		try 
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Sensor WHERE id_s = '" + idSensor + "'");
+			String query = ("SELECT * FROM Sensors WHERE ID_S = '"+ idSensor + "' AND ID_V = (SELECT ID_V FROM Vehicles WHERE IP = '"+ ip + "')");
 			ResultSet rs= stmt.executeQuery(query);
 			p=rs.next();
 			rs.close();			
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return p;
@@ -215,7 +214,7 @@ public class DBManager
 		try
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Gps WHERE GPS_ID = ( SELECT GPS_ID FROM Vehicle WHERE IP= '"+ ip + "'");
+			String query = ("SELECT * FROM Gps WHERE GPS_ID = ( SELECT GPS_ID FROM Vehicle WHERE IP= '"+ ip + "')");
 			ResultSet rs= stmt.executeQuery(query);
 			String state="";
 			if (rs.next())
@@ -242,11 +241,11 @@ public class DBManager
 			
 			if (p = true)
 			{
-				stmt.executeUpdate("UPDATE Gps SET State = 'OFF' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip);
+				stmt.executeUpdate("UPDATE Gps SET State = 'OFF' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip +"')");
 			}
 			else
 			{
-				stmt.executeUpdate("UPDATE Gps SET State = 'ON' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip);
+				stmt.executeUpdate("UPDATE Gps SET State = 'ON' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip + "')");
 			}
 		}
 		catch(SQLException e)
@@ -259,37 +258,87 @@ public class DBManager
 	public String getCurvalue(String idSensor)
 	{ 
 		String curvalue="";
+		String value,coord;
+		String dia,mes,annio;
+		int hora, minutos, segundos;
 		try 
 		{
-			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Sensor WHERE id_s = '" + idSensor + "'");
-			ResultSet rs= stmt.executeQuery(query);
-			while (rs.next())
-			{
+			//Calendar c1 = Calendar.getInstance();
+			Calendar c = new GregorianCalendar();
 			
-				//curvalue= rs.getString("Date") + ";" + rs.getString("Time") + ";" + rs.getString("Coord") + ":" + rs.getString("Value");
-				curvalue= rs.getString(1) + rs.getString(2) + rs.getString(3) + rs.getString(4);
-			}		
+			dia = Integer.toString(c.get(Calendar.DATE));
+			mes = Integer.toString(c.get(Calendar.MONTH));
+			annio = Integer.toString(c.get(Calendar.YEAR));
+			
+			hora =c.get(Calendar.HOUR_OF_DAY);
+			minutos = c.get(Calendar.MINUTE);
+			segundos = c.get(Calendar.SECOND);
+			
+			
+			Statement stmt= con.createStatement();
+			String query1 = ("SELECT VALUE FROM Sensors WHERE ID_S = '" + idSensor + "'");
+			String query2 = ("SELECT COORD FROM GPS WHERE ID_V = (SELECT ID_V FROM Sensors WHERE ID_S = '" + idSensor + "')");
+			ResultSet rs1= stmt.executeQuery(query1);
+			ResultSet rs2= stmt.executeQuery(query2);
+			
+			rs1.next();
+			value = rs1.getString(1);
+			rs2.next();
+			coord = rs2.getString(1);
+			
+			curvalue= dia + "/" + mes + "/" + annio + ";" + hora + ":" + minutos + ":" + segundos + ";" + coord + ";" + value;
+				
 			
 		} 
 		catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return curvalue;
-		//Es demasiado tarde ya para que me entere de que es lo que he hecho mal aqui.........
 		
 
 	}
 	
-	public String getCoordinates()
+	public String getPicture(String ip) 
 	{
-		return null;
-		
+		String picture = null;
+		try 
+		{
+			Statement stmt= con.createStatement();
+			String query = ("SELECT PICTURE FROM Pic WHERE COORD = ( SELECT COORD FROM GPS WHERE GPS_ID = (SELECT GPS_ID FROM Vehicles WHERE IP = '" + ip + "'))");
+			ResultSet rs= stmt.executeQuery(query);
+			rs.next();
+			picture = rs.getString("Picture");
+			rs.close();			
+		} 
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			//System.out.println("Problem in the data base with the State");
+		}
+		return picture;	
 	}
-
+	
+	public String getCoord(String ip)
+	{
+		String coord = null;
+		try
+		{
+			Statement stmt = con.createStatement();
+			String query = ("SELECT Coord FROM GPS WHERE GPS_ID = (SELECT GPS_ID FROM Vehicles WHERE IP = '" + ip + "')");
+			ResultSet rs = stmt.executeQuery(query);
+			rs.next();
+			coord = rs.getString("Coord");
+			rs.close();
+		}
+		catch (SQLException e) {
+			
+			e.printStackTrace();
+			//System.out.println("Problem in the data base with the State");
+		}
+		return coord;
+	}
 
 	
 	public void disconnect()
@@ -304,6 +353,8 @@ public class DBManager
 			System.out.println("Disconnection fail");
 		}
 	}
+
+	
 
 }
 

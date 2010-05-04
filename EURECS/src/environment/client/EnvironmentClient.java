@@ -13,6 +13,7 @@ public class EnvironmentClient
 	{
 		try 
 		{
+			//Socket por el que se realiza la conexion
 			Socket cSocket= new Socket("127.0.0.1", 2000);
 			SocketManager sm= new SocketManager(cSocket);
 			
