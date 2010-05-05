@@ -20,8 +20,8 @@ public class DBManager
 	{
 		 try
          {
-                 Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-                 con = DriverManager.getConnection("jdbc:-Odbc:DB","", "");
+			 Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+             con = DriverManager.getConnection("jdbc:odbc:DB","", "");
          }
          catch(Exception e)
          { 

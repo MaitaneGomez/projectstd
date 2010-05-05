@@ -4,9 +4,10 @@ import java.net.*;
 import java.io.*;
 
 
-public class SocketManager {
 
+public class SocketManager {
     private Socket mySocket;
+
     private DataOutputStream bufferEscritura;
     private BufferedReader bufferLectura;
 
@@ -64,6 +65,17 @@ public class SocketManager {
     public String Leer() throws IOException {
         return (bufferLectura.readLine());
     }
+   
+    public byte [] LeerBytes (int tam) throws IOException {
+        byte [] b = new byte [tam] ;
+        int bytesRead =0;
+       
+        while (bytesRead<tam) {
+                bytesRead += this.mySocket.getInputStream().read(b, bytesRead, ((tam-bytesRead)>=5000)?5000:tam-bytesRead);
+        }
+       
+        return b;
+    }
 
     public void Escribir(String contenido) throws IOException {
         bufferEscritura.writeBytes(contenido);
@@ -71,5 +83,9 @@ public class SocketManager {
 
     public void Escribir(byte[] buffer, int bytes) throws IOException {
         bufferEscritura.write(buffer, 0, bytes);
+    }
+   
+    public void EscribirBytes(byte []buff) throws IOException {
+        this.mySocket.getOutputStream().write(buff);
     }
 }
