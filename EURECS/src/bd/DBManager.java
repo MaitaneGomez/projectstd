@@ -18,19 +18,15 @@ public class DBManager
 		
 	public DBManager()
 	{
-		try
-		{
-			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver"); 
-			//String db = “jdbc:odbc:BD”;
-			String db = "jdbc:odbc:Driver={Microsoft Access Driver (DB.mdb)};DBQ=C:";
-			con = DriverManager.getConnection( db, "", "");
-		  
-		}
-			
-		catch(Exception e)
-		{ 
-			System.out.println("Driver JDBC-ODBC fail"); 
-		}
+		 try
+         {
+                 Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+                 con = DriverManager.getConnection("jdbc:-Odbc:DB","", "");
+         }
+         catch(Exception e)
+         { 
+                 System.out.println("Cannot load the JDBC-ODBC Driver"); 
+         }
 	
 	}
 	
@@ -214,7 +210,7 @@ public class DBManager
 		try
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Gps WHERE GPS_ID = ( SELECT GPS_ID FROM Vehicle WHERE IP= '"+ ip + "')");
+			 String query = ("SELECT * FROM Gps WHERE ID_V = ( SELECT ID_V FROM Vehicle WHERE IP= '"+ ip + "')");
 			ResultSet rs= stmt.executeQuery(query);
 			String state="";
 			if (rs.next())
@@ -306,7 +302,7 @@ public class DBManager
 		try 
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT PICTURE FROM Pic WHERE COORD = ( SELECT COORD FROM GPS WHERE GPS_ID = (SELECT GPS_ID FROM Vehicles WHERE IP = '" + ip + "'))");
+			String query = ("SELECT PICTURE FROM Pic WHERE COORD = ( SELECT COORD FROM GPS WHERE ID_V = (SELECT ID_V FROM Vehicles WHERE IP = '" + ip + "'))");
 			ResultSet rs= stmt.executeQuery(query);
 			rs.next();
 			picture = rs.getString("Picture");
@@ -326,7 +322,7 @@ public class DBManager
 		try
 		{
 			Statement stmt = con.createStatement();
-			String query = ("SELECT Coord FROM GPS WHERE GPS_ID = (SELECT GPS_ID FROM Vehicles WHERE IP = '" + ip + "')");
+			String query = ("SELECT Coord FROM GPS WHERE ID_V = (SELECT ID_V FROM Vehicles WHERE IP = '" + ip + "')");
 			ResultSet rs = stmt.executeQuery(query);
 			rs.next();
 			coord = rs.getString("Coord");
