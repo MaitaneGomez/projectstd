@@ -53,7 +53,7 @@ public class EnvironmentServer implements Runnable
 					{
 						case 0:
 						{
-							user = token.nextToken();
+						
 							//Ahora miramos en la BD si existe el user 
 							//si es que si pues sacamos "201 OK Welcome Mikel"
 							// si no exis<te en la bd "401 ERR Missing username parameter"							
@@ -65,7 +65,9 @@ public class EnvironmentServer implements Runnable
 								// si no existe en la bd "401 ERR Missing username parameter"
 								try
 								{
+									
 									user = token.nextToken();
+									System.out.println("El usuario que registro se llama" + user.toString());
 									if( DB.checkUser(user))
 									{
 										sm.Escribir("201 OK Welcome " + user + "\n");

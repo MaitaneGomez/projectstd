@@ -1,4 +1,10 @@
 package gui;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.io.IOException;
+import java.util.Vector;
+
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -32,11 +38,14 @@ import javax.swing.SwingUtilities;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class menuGUI extends javax.swing.JFrame {
+public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 	private JPanel jPanelUp;
 	private JPanel jPanelStatus;
 	private JPanel jPanelOptions;
 	private JLabel jLabelText;
+	private JTextField jTextFieldChooseSensor;
+	private JButton jButtonChooseSensor;
+	private JLabel jLabelChooseSensor;
 	private JLabel jLabelListSensor;
 	private JList jListSensors;
 	private JButton jButtonBack;
@@ -77,23 +86,34 @@ public class menuGUI extends javax.swing.JFrame {
 					jLabelText.setFont(new java.awt.Font("Segoe Script",1,16));
 				}
 				{
+					
 					jButtonBack = new JButton();
 					jButtonBack.setText("Back");
-					jButtonBack.setEnabled(true);
 					
 				}
 				{
+					
+
 					ComboBoxModel jComboBoxModel = new DefaultComboBoxModel(new String[] {/*"Select one...","List of sensors","Historical mesaurements","Sensor activation","Sensor desactivation","GPS activation","GPS desactivation","Sensor current value","Geolocated picture"*/});
 					jComboBox = new JComboBox();
 					jComboBox.setModel(jComboBoxModel);
-					jComboBox.addItem("cero");
-					jComboBox.addItem("uno");
-					jComboBox.addItem("dos");
+
+					jComboBox.addItem("Select one...");
+					jComboBox.addItem("List of sensors");
+					jComboBox.addItem("Sensor activation");
+					jComboBox.addItem("Sensor desactivation");
+					jComboBox.addItem("GPS activation");
+					jComboBox.addItem("GPS desactivation");
+					jComboBox.addItem("Sensor current value");
+					jComboBox.addItem("Geolocated picture");
+					
+					jComboBox.addActionListener(this);
+				
 					
 					
-					int selectedIndex = jComboBox.getSelectedIndex();
+				/*int selectedIndex = jComboBox.getSelectedIndex();
 			        switch (selectedIndex) {
-			           case 1:	jButtonBack.setEnabled(false);
+			           case 2:	jButtonBack.setEnabled(false);
 			           				break;
 			        }
 			
@@ -162,7 +182,7 @@ public class menuGUI extends javax.swing.JFrame {
 					jListSensors = new JList();
 					jListSensors.setModel(jListSensorsModel);
 					jListSensors.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-					jListSensors.setVisible(false);
+					jListSensors.setVisible(true);
 					
 				}
 				{
@@ -171,23 +191,46 @@ public class menuGUI extends javax.swing.JFrame {
 					jLabelListSensor.setFont(new java.awt.Font("Segoe Print",1,14));
 					jLabelListSensor.setVisible(false);
 				}
+				{
+					jButtonChooseSensor = new JButton();
+					jButtonChooseSensor.setText("Ok");
+					jButtonChooseSensor.setFont(new java.awt.Font("Segoe Print",1,14));
+					jButtonChooseSensor.setVisible(false);
+				}
+				{
+					jLabelChooseSensor = new JLabel();
+					jLabelChooseSensor.setText("What sensor do you want?");
+					jLabelChooseSensor.setFont(new java.awt.Font("Segoe Print",1,14));
+					jLabelChooseSensor.setVisible(false);
+				}
+				{
+					jTextFieldChooseSensor = new JTextField();
+				}
 				jPanelOptionsLayout.setHorizontalGroup(jPanelOptionsLayout.createSequentialGroup()
-					.addContainerGap(56, 56)
 					.addGroup(jPanelOptionsLayout.createParallelGroup()
+					    .addComponent(jListSensors, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jLabelListSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+					.addGap(22)
+					.addGroup(jPanelOptionsLayout.createParallelGroup()
+					    .addComponent(jLabelChooseSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelOptionsLayout.createSequentialGroup()
-					        .addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 132, Short.MAX_VALUE))
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelOptionsLayout.createSequentialGroup()
-					        .addGap(61)
-					        .addComponent(jListSensors, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 0, Short.MAX_VALUE)))
-					.addContainerGap(118, 118));
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					        .addComponent(jTextFieldChooseSensor, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+					        .addGap(84)))
+					.addGap(73)
+					.addComponent(jButtonChooseSensor, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(21, Short.MAX_VALUE));
 				jPanelOptionsLayout.setVerticalGroup(jPanelOptionsLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(38)
-					.addComponent(jListSensors, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(27, Short.MAX_VALUE));
+					.addGroup(jPanelOptionsLayout.createParallelGroup()
+					    .addComponent(jListSensors, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jLabelListSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+					.addGap(29)
+					.addComponent(jLabelChooseSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+					.addGroup(jPanelOptionsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					    .addComponent(jTextFieldChooseSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jButtonChooseSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(74, 74));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
@@ -201,6 +244,70 @@ public class menuGUI extends javax.swing.JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 
-}
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		JComboBox c= (JComboBox)e.getSource();
+		switch (c.getSelectedIndex())
+		{
+			case 0:jPanelOptions.setVisible(false);
+			break;
+			case 1:
+			{
+				jListSensors.setVisible(true);
+				jLabelListSensor.setVisible(true);
+				jButtonChooseSensor.setVisible(true);
+				jLabelChooseSensor.setVisible(true);
+			
+				break;
+			}
+			default: 
+			{
+				jListSensors.setVisible(false);
+				jLabelListSensor.setVisible(false);
+				jButtonChooseSensor.setVisible(false);
+				jLabelChooseSensor.setVisible(false);
+			}
+			
+			
+	/** ACCIONES DE LOS BOTONES DE LOS CLIENTES **/
+			
+	
+			
+			public boolean Exit()
+			{
+				String resp = null;
+				boolean result = false;
+				try
+				{
+					sm.Escriir("Exit\r\n");
+					resp = sm.leer();
+					System.out.println(resp);
+					
+					if (resp.starWith("208"))
+					{
+					
+						sm.cerrarStreams();
+						sm.cerrarSockets();
+						result = true;
+					}
+				}
+				catch(IOException e) 
+				{
+					System.err.println(e);
+				}
+				return result;
+				
+			}
+			
+		}
+			
+	}
+		
+	}
+
+

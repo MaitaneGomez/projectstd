@@ -1,6 +1,12 @@
 package gui;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -8,6 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+
+import environment.util.SocketManager;
 
 
 /**
@@ -22,7 +30,7 @@ import javax.swing.WindowConstants;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class VentanaEnvironment extends javax.swing.JFrame {
+public class VentanaEnvironment extends javax.swing.JFrame implements  ActionListener{
 
 
 	private static final long serialVersionUID = 1L;
@@ -40,6 +48,7 @@ public class VentanaEnvironment extends javax.swing.JFrame {
 	private JTextField jTextFieldPass;
 	private JLabel jLabelPass;
 	private JTextField jTextFieldUser;
+	private static SocketManager sm;
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -47,6 +56,19 @@ public class VentanaEnvironment extends javax.swing.JFrame {
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				try 
+				{
+                    Socket serverSocket = new Socket("127.0.0.1", 3000);
+                    System.out.println(serverSocket.toString());
+                    sm = new SocketManager(serverSocket);
+				} 
+				catch (IOException e) 
+				{
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    System.out.println("Exception del socket");
+                    
+            }
 				VentanaEnvironment inst = new VentanaEnvironment();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
@@ -94,6 +116,7 @@ public class VentanaEnvironment extends javax.swing.JFrame {
 					jButtonLogUser = new JButton();
 					jButtonLogUser.setText("Login User");
 					jButtonLogUser.setFont(new java.awt.Font("Segoe Print",1,16));
+					jButtonLogUser.addActionListener(this);
 				}
 				jPanelUpLayout.setHorizontalGroup(jPanelUpLayout.createSequentialGroup()
 					.addContainerGap(38, 38)
@@ -201,6 +224,41 @@ public class VentanaEnvironment extends javax.swing.JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) 
+	{
+		// TODO Auto-generated method stub
+		
+		JButton button= (JButton)e.getSource();
+		
+		if(button == jButtonLogUser)
+		{
+			String resp =null;
+			boolean result = false;
+			String userName = jTextFieldUser.getText(); //Viene del texto que viene
+			try 
+			{
+				sm.Escribir("USER " + userName + "\r\n");
+				resp = sm.Leer();
+				System.out.println(resp);
+				if (resp.startsWith("201")) 
+				{
+					//set del status bar con la resp
+					//Dejar que se escriba en el password
+				}
+				else if ((resp.startsWith("400")) || (resp.startsWith("401")))
+				{
+						//Set del statusBarcon toda la resp
+				}
+			} 
+			catch(IOException ex) 
+			{
+				System.err.println(ex);
+			}
+		}
+		
 	}
 
 }
