@@ -1,11 +1,12 @@
 package gui;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -21,7 +22,6 @@ import javax.swing.ListModel;
 
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.SwingUtilities;
 
@@ -39,6 +39,10 @@ import javax.swing.SwingUtilities;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 public class menuGUI extends javax.swing.JFrame  implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel jPanelUp;
 	private JPanel jPanelStatus;
 	private JPanel jPanelOptions;
@@ -89,6 +93,7 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 					
 					jButtonBack = new JButton();
 					jButtonBack.setText("Back");
+					jButtonBack.addActionListener(this);
 					
 				}
 				{
@@ -251,11 +256,21 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+			
+		/** ACCIONES DEl COMBO **/
+		
 		JComboBox c= (JComboBox)e.getSource();
 		switch (c.getSelectedIndex())
 		{
-			case 0:jPanelOptions.setVisible(false);
-			break;
+			case 0:
+			{
+				jPanelOptions.setVisible(false);
+				jListSensors.setVisible(false);
+				jLabelListSensor.setVisible(false);
+				jButtonChooseSensor.setVisible(false);
+				jLabelChooseSensor.setVisible(false);
+				break;
+			}
 			case 1:
 			{
 				jListSensors.setVisible(true);
@@ -265,49 +280,38 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 			
 				break;
 			}
-			default: 
+			case 2:
+			{
+				System.out.println("mierda ara ti");
+				break;
+			}
+			/*default: 
 			{
 				jListSensors.setVisible(false);
 				jLabelListSensor.setVisible(false);
 				jButtonChooseSensor.setVisible(false);
 				jLabelChooseSensor.setVisible(false);
-			}
-			
-			
-	/** ACCIONES DE LOS BOTONES DE LOS CLIENTES **/
-			
-	
-			
-			public boolean Exit()
-			{
-				String resp = null;
-				boolean result = false;
-				try
-				{
-					sm.Escriir("Exit\r\n");
-					resp = sm.leer();
-					System.out.println(resp);
-					
-					if (resp.starWith("208"))
-					{
-					
-						sm.cerrarStreams();
-						sm.cerrarSockets();
-						result = true;
-					}
-				}
-				catch(IOException e) 
-				{
-					System.err.println(e);
-				}
-				return result;
 				
-			}
+				break;
+			}*/
+		}
+		
+
+		/** ACCIONES DE LOS BOTONES DE LOS CLIENTES **/
+		
+		JButton button= (JButton)e.getSource();
+		
+		if(button == jButtonBack)
+		{
+			VentanaEnvironment ventana= new VentanaEnvironment();
+			ventana.setVisible(true);  
+			this.dispose();
 			
 		}
-			
-	}
 		
 	}
 
+			
+	
 
+}

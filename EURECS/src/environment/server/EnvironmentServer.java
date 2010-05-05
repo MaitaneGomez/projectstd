@@ -67,7 +67,6 @@ public class EnvironmentServer implements Runnable
 								{
 									
 									user = token.nextToken();
-									System.out.println("El usuario que registro se llama" + user.toString());
 									if( DB.checkUser(user))
 									{
 										sm.Escribir("201 OK Welcome " + user + "\n");
@@ -92,19 +91,19 @@ public class EnvironmentServer implements Runnable
 									password = token.nextToken();
 									if( DB.checkPass(user,password))
 									{
-										sm.Escribir("201 OK Welcome to the system \n" );
+										sm.Escribir("202 OK Welcome to the system \n" );
 										state=2;
 									}
 									else 
 									{
 										sm.Escribir("402 ERR Authentication error \n");
 										state=0;
-									}
-									//Ahora miramos en la BD si existe el user 
+									} 
 								}
 								catch(Exception e)
 								{
 									sm.Escribir("403 ERR Missing password parameter \n");
+									state=0;
 								}
 							}
 							break;
@@ -337,3 +336,36 @@ public class EnvironmentServer implements Runnable
 		}
 	}
 }
+
+/*	public boolean Exit()
+{
+	String resp = null;
+	boolean result = false;
+	try
+	{
+		sm.Escriir("Exit\r\n");
+		resp = sm.leer();
+		System.out.println(resp);
+		
+		if (resp.starWith("208"))
+		{
+		
+			sm.cerrarStreams();
+			sm.cerrarSockets();
+			result = true;
+		}
+	}
+	catch(IOException e) 
+	{
+		System.err.println(e);
+	}
+	return result;
+	
+}
+
+}
+*/
+
+
+
+

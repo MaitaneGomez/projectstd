@@ -6,7 +6,6 @@ import java.net.Socket;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,6 +33,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 
 
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel jPanelUp;
 	private JPanel jPanelMiddle;
 	private JPanel jPanelDown;
@@ -100,6 +100,8 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jButtonLogPass = new JButton();
 					jButtonLogPass.setText("Login Password");
 					jButtonLogPass.setFont(new java.awt.Font("Segoe Print",1,16));
+					jButtonLogPass.addActionListener(this);
+					jButtonLogPass.setVisible(false);
 				}
 				{
 					jTextFieldUser = new JTextField();
@@ -108,9 +110,11 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelPass = new JLabel();
 					jLabelPass.setText("Password:");
 					jLabelPass.setFont(new java.awt.Font("Segoe Print",1,16));
+					jLabelPass.setVisible(false);
 				}
 				{
 					jTextFieldPass = new JTextField();
+					jTextFieldPass.setVisible(false);
 				}
 				{
 					jButtonLogUser = new JButton();
@@ -158,19 +162,24 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelQuest = new JLabel();
 					jLabelQuest.setText("What vehicle do you want ?");
 					jLabelQuest.setFont(new java.awt.Font("Segoe Print",1,16));
+					jLabelQuest.setVisible(false);
 				}
 				{
 					jLabelIp = new JLabel();
 					jLabelIp.setText("IP :");
 					jLabelIp.setFont(new java.awt.Font("Segoe Print",1,16));
+					jLabelIp.setVisible(false);
 				}
 				{
 					jTextFieldIP = new JTextField();
+					jTextFieldIP.setVisible(false);
 				}
 				{
 					jButtonNext = new JButton();
 					jButtonNext.setText("Next");
 					jButtonNext.setFont(new java.awt.Font("Segoe Print",1,16));
+					jButtonNext.setVisible(false);
+					jButtonNext.addActionListener(this);
 				}
 				jPanelMiddleLayout.setHorizontalGroup(jPanelMiddleLayout.createSequentialGroup()
 					.addContainerGap(72, 72)
@@ -202,7 +211,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				jPanelDown.setLayout(jPanelDownLayout);
 				{
 					statusBar = new JLabel();
-					statusBar.setText("holaaaaaaaaaaaaaaaaaaa!");
+					statusBar.setText("");
 
 				}
 					jPanelDownLayout.setHorizontalGroup(jPanelDownLayout.createSequentialGroup()
@@ -236,7 +245,6 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		if(button == jButtonLogUser)
 		{
 			String resp =null;
-			boolean result = false;
 			String userName = jTextFieldUser.getText(); //Viene del texto que viene
 			try 
 			{
@@ -245,12 +253,56 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				System.out.println(resp);
 				if (resp.startsWith("201")) 
 				{
-					//set del status bar con la resp
+					statusBar.setText(resp);
+					jLabelPass.setVisible(true);
+					jButtonLogPass.setVisible(true);
+					jTextFieldPass.setVisible(true);
 					//Dejar que se escriba en el password
 				}
 				else if ((resp.startsWith("400")) || (resp.startsWith("401")))
 				{
-						//Set del statusBarcon toda la resp
+					statusBar.setText(resp);
+					jTextFieldUser.setText("");
+				}
+			} 
+			catch(IOException ex) 
+			{
+				System.err.println(ex);
+				jTextFieldUser.setText("");
+			}
+		}
+		
+		if(button == jButtonLogPass)
+		{
+			String resp = null;
+			String userPass=jTextFieldPass.getText();
+			try 
+			{
+				sm.Escribir("PASS " + userPass + "\r\n");
+				resp = sm.Leer();
+				System.out.println(resp);
+				if (resp.startsWith("202")) 
+				{
+					statusBar.setText(resp);
+					jLabelQuest.setVisible(true);
+					jLabelIp.setVisible(true);
+					jTextFieldIP.setVisible(true);
+					jButtonNext.setVisible(true);
+					
+					
+				}
+				else if ((resp.startsWith("403"))) 
+				{
+					statusBar.setText(resp);
+					jTextFieldUser.setText("");
+					jTextFieldPass.getText();
+					
+				}
+				else if ((resp.startsWith("402")))
+				{
+					statusBar.setText(resp);
+					jTextFieldUser.setText("");
+					jTextFieldPass.setText("");
 				}
 			} 
 			catch(IOException ex) 
@@ -258,6 +310,33 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				System.err.println(ex);
 			}
 		}
+		
+		if(button == jButtonNext)
+		{
+			String resp = null;
+			String ip=jTextFieldIP.getText();;
+			
+			try 
+			{
+				sm.Escribir("IP " + ip + "\r\n");
+				resp = sm.Leer();
+				System.out.println(resp);
+				if (resp.startsWith("OK,")) 
+				{
+					statusBar.setText(resp);
+					menuGUI ventana= new menuGUI();
+					ventana.setVisible(true);  
+					this.dispose();
+				}
+				else if (resp.startsWith("ERR,")) 
+				{
+					statusBar.setText(resp);
+				}
+			} catch(IOException ex) {
+				System.err.println(ex);
+			}
+		}	
+		
 		
 	}
 
