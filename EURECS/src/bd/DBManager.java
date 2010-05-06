@@ -70,7 +70,7 @@ public class DBManager
 		try 
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Vehicle WHERE IP = '" + ip + "'");
+			String query = ("SELECT * FROM Vehicles WHERE IP = '" + ip + "'");
 			ResultSet rs= stmt.executeQuery(query);
 			p=rs.next();
 			rs.close();			
@@ -210,7 +210,7 @@ public class DBManager
 		try
 		{
 			Statement stmt= con.createStatement();
-			 String query = ("SELECT * FROM Gps WHERE ID_V = ( SELECT ID_V FROM Vehicle WHERE IP= '"+ ip + "')");
+			 String query = ("SELECT * FROM Gps WHERE ID_V = ( SELECT ID_V FROM Vehicles WHERE IP= '"+ ip + "')");
 			ResultSet rs= stmt.executeQuery(query);
 			String state="";
 			if (rs.next())
@@ -237,11 +237,11 @@ public class DBManager
 			
 			if (p = true)
 			{
-				stmt.executeUpdate("UPDATE Gps SET State = 'OFF' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip +"')");
+				stmt.executeUpdate("UPDATE Gps SET State = 'OFF' WHERE gps_id = (SELECT gps_id FROM Vehicles WHERE ip = '" + ip +"')");
 			}
 			else
 			{
-				stmt.executeUpdate("UPDATE Gps SET State = 'ON' WHERE gps_id = (SELECT gps_id FROM Vehicle WHERE ip = '" + ip + "')");
+				stmt.executeUpdate("UPDATE Gps SET State = 'ON' WHERE gps_id = (SELECT gps_id FROM Vehicles WHERE ip = '" + ip + "')");
 			}
 		}
 		catch(SQLException e)
