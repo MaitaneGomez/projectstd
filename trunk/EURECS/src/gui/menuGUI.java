@@ -47,20 +47,33 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JPanel jPanelUp;
 	private JPanel jPanelStatus;
-	private JPanel jPanelOptions;
 	private JLabel jLabelText;
-	private JTextField jTextFieldChooseSensor;
-	private JLabel jLabelDesactivate;
-	private JButton jButtonDesactivate;
-	private JLabel jLabelSensorDes;
-	private JLabel jLabelActivate;
-	private JButton jButtonActivate;
-	private JLabel jLabelSensorAct;
-	private JButton jButtonChooseSensor;
+	private JButton jButton1;
 	private JLabel jLabelChooseSensor;
-	private JLabel jLabelListSensor;
+	private JLabel jLabelSensorAct;
+	private JPanel jPanelSensorAct;
 	private JList jListSensors;
+	private JLabel jLabelList;
+	private JPanel jPanelList;
+	//private JTextField jTextFieldChooseSensor;
+	//private JLabel jLabelDesactivate;
+	//private JButton jButtonDesactivate;
+	//private JLabel jLabelSensorDes;
+	//private JLabel jLabelActivate;
+	//private JButton jButtonActivate;
+	//private JLabel jLabelSensorAct;
+	//private JButton jButtonChooseSensor;
+	//private JLabel jLabelChooseSensor;
+	//private JLabel jLabelListSensor;
+	//private JList jListSensors;
 	private JButton jButtonBack;
+	private JButton jButtonSensorAct;
+	private JPanel jPanelSensorDesc;
+	private JLabel jLabelChooseDSensor;
+	private JComboBox jComboBoxSensorDes;
+	private JButton jButtonSensorDes;
+	private JLabel jLabelSensorDes;
+	private JComboBox jComboBoxSensors;
 	private JComboBox jComboBox;
 
 	/**
@@ -157,7 +170,7 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 					
 				}
 				jPanelUpLayout.setHorizontalGroup(jPanelUpLayout.createSequentialGroup()
-					.addContainerGap(58, 58)
+					.addContainerGap(57, 57)
 					.addGroup(jPanelUpLayout.createParallelGroup()
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelUpLayout.createSequentialGroup()
 					        .addComponent(jComboBox, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
@@ -167,15 +180,122 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 					        .addComponent(jLabelText, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(36)
 					.addComponent(jButtonBack, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(32, Short.MAX_VALUE));
+					.addContainerGap(31, Short.MAX_VALUE));
 				jPanelUpLayout.setVerticalGroup(jPanelUpLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(jLabelText, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(20)
 					.addGroup(jPanelUpLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					    .addComponent(jComboBox, GroupLayout.Alignment.BASELINE, 0, 22, Short.MAX_VALUE)
-					    .addComponent(jButtonBack, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+					    .addComponent(jButtonBack, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap());
+			}
+			{
+				jPanelSensorAct = new JPanel();
+				GroupLayout jPanelSensorActLayout = new GroupLayout((JComponent)jPanelSensorAct);
+				jPanelSensorAct.setLayout(jPanelSensorActLayout);
+				jPanelSensorAct.setVisible(false);
+				{
+					jLabelSensorAct = new JLabel();
+					jLabelSensorAct.setText("Do you want you activate the sensor?");
+					jLabelSensorAct.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+				{
+					jLabelChooseSensor = new JLabel();
+					jLabelChooseSensor.setText("Choose a sensor");
+					jLabelChooseSensor.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+				{
+					jButtonSensorAct = new JButton();
+					jButtonSensorAct.setText("OK");
+					jButtonSensorAct.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+				{
+					ComboBoxModel jComboBoxSensorsModel = 
+						new DefaultComboBoxModel(
+								new String[] { "Item One", "Item Two" });
+					jComboBoxSensors = new JComboBox();
+					jComboBoxSensors.setModel(jComboBoxSensorsModel);
+					jComboBoxSensors.setFont(new java.awt.Font("Segoe Print",1,12));
+				}
+					jPanelSensorActLayout.setHorizontalGroup(jPanelSensorActLayout.createSequentialGroup()
+					.addContainerGap(21, 21)
+					.addGroup(jPanelSensorActLayout.createParallelGroup()
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelSensorActLayout.createSequentialGroup()
+					        .addComponent(jLabelChooseSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					        .addGap(61)
+					        .addComponent(jComboBoxSensors, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					        .addGap(61)
+					        .addComponent(jButtonSensorAct, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 0, Short.MAX_VALUE))
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelSensorActLayout.createSequentialGroup()
+					        .addGap(102)
+					        .addComponent(jLabelSensorAct, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 26, Short.MAX_VALUE)))
+					.addContainerGap(38, 38));
+					jPanelSensorActLayout.setVerticalGroup(jPanelSensorActLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jLabelSensorAct, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(27)
+					.addGroup(jPanelSensorActLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					    .addComponent(jLabelChooseSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jButtonSensorAct, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jComboBoxSensors, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(36, 36));
+			}
+			{
+				jPanelSensorDesc = new JPanel();
+				GroupLayout jPanelSensorDescLayout = new GroupLayout((JComponent)jPanelSensorDesc);
+				jPanelSensorDesc.setLayout(jPanelSensorDescLayout);
+				jPanelSensorDesc.setVisible(false);
+				{
+					jLabelSensorDes = new JLabel();
+					jLabelSensorDes.setText("Do you want to desactivate the sensor?");
+					jLabelSensorDes.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+				{
+					jButtonSensorDes = new JButton();
+					jButtonSensorDes.setText("OK");
+					jButtonSensorDes.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+				{
+					ComboBoxModel jComboBoxSensorDesModel = 
+						new DefaultComboBoxModel(
+								new String[] { "Item One", "Item Two" });
+					jComboBoxSensorDes = new JComboBox();
+					jComboBoxSensorDes.setModel(jComboBoxSensorDesModel);
+					jComboBoxSensorDes.setFont(new java.awt.Font("Segoe Print",1,12));
+				}
+				{
+					jLabelChooseDSensor = new JLabel();
+					GroupLayout jLabelChooseDSensorLayout = new GroupLayout((JComponent)jLabelChooseDSensor);
+					jLabelChooseDSensor.setLayout(jLabelChooseDSensorLayout);
+					jLabelChooseDSensor.setText("Choose a sensor:");
+					jLabelChooseDSensor.setFont(new java.awt.Font("Segoe Print",1,14));
+					jLabelChooseDSensorLayout.setVerticalGroup(jLabelChooseDSensorLayout.createParallelGroup());
+					jLabelChooseDSensorLayout.setHorizontalGroup(jLabelChooseDSensorLayout.createParallelGroup());
+				}
+					jPanelSensorDescLayout.setHorizontalGroup(jPanelSensorDescLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(jPanelSensorDescLayout.createParallelGroup()
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelSensorDescLayout.createSequentialGroup()
+					        .addComponent(jLabelChooseDSensor, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+					        .addComponent(jComboBoxSensorDes, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+					        .addGap(55))
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelSensorDescLayout.createSequentialGroup()
+					        .addGap(77)
+					        .addComponent(jLabelSensorDes, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(23)
+					.addComponent(jButtonSensorDes, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE));
+					jPanelSensorDescLayout.setVerticalGroup(jPanelSensorDescLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jLabelSensorDes, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(39)
+					.addGroup(jPanelSensorDescLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					    .addComponent(jLabelChooseDSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jButtonSensorDes, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jComboBoxSensorDes, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(30, 30));
 			}
 			{
 				jPanelStatus = new JPanel();
@@ -185,130 +305,76 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 				jPanelStatusLayout.setHorizontalGroup(jPanelStatusLayout.createParallelGroup());
 			}
 			{
-				jPanelOptions = new JPanel();
-				GroupLayout jPanelOptionsLayout = new GroupLayout((JComponent)jPanelOptions);
-				jPanelOptions.setLayout(jPanelOptionsLayout);
+				jPanelList = new JPanel();
+				GroupLayout jPanelListLayout = new GroupLayout((JComponent)jPanelList);
+				jPanelList.setLayout(jPanelListLayout);
+				jPanelList.setVisible(false);
+				{
+					jLabelList = new JLabel();
+					jLabelList.setText("List of sensors");
+					jLabelList.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
 				{
 					ListModel jListSensorsModel = 
 						new DefaultComboBoxModel(
 								new String[] { "Item One", "Item Two" });
 					jListSensors = new JList();
 					jListSensors.setModel(jListSensorsModel);
-					jListSensors.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-					jListSensors.setVisible(false);
-					
 				}
 				{
-					jLabelListSensor = new JLabel();
-					jLabelListSensor.setText("List of Sensors");
-					jLabelListSensor.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelListSensor.setVisible(false);
+					jButton1 = new JButton();
+					jButton1.setText("Back");
+					jButton1.setFont(new java.awt.Font("Segoe Print",1,14));
 				}
-				{
-					jButtonChooseSensor = new JButton();
-					jButtonChooseSensor.setText("Ok");
-					jButtonChooseSensor.setFont(new java.awt.Font("Segoe Print",1,14));
-					jButtonChooseSensor.setVisible(false);
-				}
-				{
-					jLabelSensorAct = new JLabel();
-					jLabelSensorAct.setText("Sensor Activation");
-					jLabelSensorAct.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelSensorAct.setVisible(false);
-				}
-				{
-					jButtonActivate = new JButton();
-					jButtonActivate.setText("Activate");
-					jButtonActivate.setFont(new java.awt.Font("Segoe Print",1,14));
-					jButtonActivate.setVisible(false);
-				}
-				{
-					jLabelSensorDes = new JLabel();
-					jLabelSensorDes.setText("Sensor desactivation");
-					jLabelSensorDes.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelSensorDes.setVisible(false);
-				}
-				{
-					jButtonDesactivate = new JButton();
-					jButtonDesactivate.setText("Desactivate");
-					jButtonDesactivate.setFont(new java.awt.Font("Segoe Print",1,14));
-					jButtonDesactivate.setVisible(false);
-				}
-				{
-					jLabelDesactivate = new JLabel();
-					jLabelDesactivate.setText("Do you want to desactivate?");
-					jLabelDesactivate.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelDesactivate.setVisible(false);
-				}
-				{
-					jLabelActivate = new JLabel();
-					jLabelActivate.setText("Do you want you activate?");
-					jLabelActivate.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelActivate.setVisible(false);
-				}
-				{
-					jLabelChooseSensor = new JLabel();
-					jLabelChooseSensor.setText("What sensor do you want?");
-					jLabelChooseSensor.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelChooseSensor.setVisible(false);
-				}
-				{
-					jTextFieldChooseSensor = new JTextField();
-					jTextFieldChooseSensor.setVisible(false);
-				}
-					jPanelOptionsLayout.setHorizontalGroup(jPanelOptionsLayout.createSequentialGroup()
-					.addGroup(jPanelOptionsLayout.createParallelGroup()
-					    .addComponent(jLabelSensorDes, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelActivate, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonChooseSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelListSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jListSensors, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jTextFieldChooseSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelChooseSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonDesactivate, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelDesactivate, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-					.addGap(193)
-					.addGroup(jPanelOptionsLayout.createParallelGroup()
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelOptionsLayout.createSequentialGroup()
-					        .addComponent(jButtonActivate, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 117, Short.MAX_VALUE))
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelOptionsLayout.createSequentialGroup()
-					        .addPreferredGap(jButtonActivate, jLabelSensorAct, LayoutStyle.ComponentPlacement.INDENT)
-					        .addComponent(jLabelSensorAct, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 0, Short.MAX_VALUE)))
-					.addContainerGap(154, 154));
-					jPanelOptionsLayout.setVerticalGroup(jPanelOptionsLayout.createSequentialGroup()
-					.addGroup(jPanelOptionsLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-					    .addComponent(jLabelSensorDes, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelActivate, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonChooseSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelListSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelChooseSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonDesactivate, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jLabelDesactivate, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-					.addGroup(jPanelOptionsLayout.createParallelGroup()
-					    .addComponent(jListSensors, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jTextFieldChooseSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
-					.addGap(74)
-					.addComponent(jLabelSensorAct, GroupLayout.PREFERRED_SIZE, 0, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(jButtonActivate, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(115, Short.MAX_VALUE));
+					jPanelListLayout.setHorizontalGroup(jPanelListLayout.createSequentialGroup()
+					.addContainerGap(62, 62)
+					.addGroup(jPanelListLayout.createParallelGroup()
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListLayout.createSequentialGroup()
+					        .addComponent(jListSensors, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+					        .addGap(73))
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListLayout.createSequentialGroup()
+					        .addGap(103)
+					        .addComponent(jLabelList, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)))
+					.addGap(40)
+					.addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(34, Short.MAX_VALUE));
+					jPanelListLayout.setVerticalGroup(jPanelListLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jLabelList, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addGap(39)
+					.addGroup(jPanelListLayout.createParallelGroup()
+					    .addGroup(jPanelListLayout.createSequentialGroup()
+					        .addComponent(jListSensors, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 0, Short.MAX_VALUE))
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListLayout.createSequentialGroup()
+					        .addGap(35)
+					        .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 46, Short.MAX_VALUE)))
+					.addContainerGap(24, 24));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(jPanelList, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jPanelSensorAct, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
 				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+				.addGap(20)
+				.addComponent(jPanelSensorDesc, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
 				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(jPanelOptions, 0, 216, Short.MAX_VALUE)
-				.addGap(85)
-				.addComponent(jPanelStatus, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE));
+				.addComponent(jPanelStatus, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
+				.addGroup(thisLayout.createSequentialGroup()
+				    .addGroup(thisLayout.createParallelGroup()
+				        .addComponent(jPanelList, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(jPanelSensorAct, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE))
+				    .addGroup(thisLayout.createParallelGroup()
+				        .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, 0, 420, Short.MAX_VALUE)
+				        .addComponent(jPanelStatus, GroupLayout.Alignment.LEADING, 0, 420, Short.MAX_VALUE))
+				    .addContainerGap(64, 64))
 				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				    .addComponent(jPanelUp, 0, 422, Short.MAX_VALUE)
-				    .addGap(59))
-				.addComponent(jPanelOptions, GroupLayout.Alignment.LEADING, 0, 481, Short.MAX_VALUE)
-				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				    .addComponent(jPanelStatus, 0, 422, Short.MAX_VALUE)
-				    .addGap(59)));
+				    .addPreferredGap(jPanelUp, jPanelSensorDesc, LayoutStyle.ComponentPlacement.INDENT)
+				    .addComponent(jPanelSensorDesc, 0, 460, Short.MAX_VALUE)
+				    .addContainerGap()));
 			pack();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -328,55 +394,30 @@ public class menuGUI extends javax.swing.JFrame  implements ActionListener{
 		{
 			case 0:
 			{
-				jPanelOptions.setVisible(false);
-				jListSensors.setVisible(false);
-				jLabelListSensor.setVisible(false);
-				jButtonChooseSensor.setVisible(false);
-				jLabelChooseSensor.setVisible(false);
-				jTextFieldChooseSensor.setVisible(false);
-				jLabelSensorAct.setVisible(false);
-				jButtonActivate.setVisible(false);
-				jLabelActivate.setVisible(false);
-				jLabelSensorDes.setVisible(false);
-				jButtonDesactivate.setVisible(false);
-				jLabelDesactivate.setVisible(false);
+				jPanelList.setVisible(false);
+				jPanelSensorAct.setVisible(false);
+				jPanelSensorDesc.setVisible(false);
+			
 				break;
 			}
 			case 1:
 			{
-				jListSensors.setVisible(true);
-				jLabelListSensor.setVisible(true);
-				jButtonChooseSensor.setVisible(true);
-				jLabelChooseSensor.setVisible(true);
-				jTextFieldChooseSensor.setVisible(true);
+				jPanelList.setVisible(true);
 			
 				break;
 			}
 			case 2:
 			{
-				jLabelSensorAct.setVisible(true);
-				jButtonActivate.setVisible(true);
-				jLabelActivate.setVisible(true);
+				jPanelSensorAct.setVisible(true);
 				break;
 			}
 			case 3:
 			{
-				jLabelSensorDes.setVisible(true);
-				jButtonDesactivate.setVisible(true);
-				jLabelDesactivate.setVisible(false);
+				jPanelSensorDesc.setVisible(true);
 			}
 			default: 
-			{	jPanelOptions.setVisible(false);
-				jListSensors.setVisible(false);
-				jLabelListSensor.setVisible(false);
-				jButtonChooseSensor.setVisible(false);
-				jLabelChooseSensor.setVisible(false);
-				jLabelSensorAct.setVisible(false);
-				jButtonActivate.setVisible(false);
-				jLabelActivate.setVisible(false);
-				jLabelSensorDes.setVisible(false);
-				jButtonDesactivate.setVisible(false);
-				jLabelDesactivate.setVisible(false);
+			{	//jPanelOptions.setVisible(false);
+			
 				break;
 			}
 		}

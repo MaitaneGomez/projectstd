@@ -62,10 +62,12 @@ public class SocketManager {
      * @return String
      * @throws IOException
      */
-    public String Leer() throws IOException {
+    public String Leer() throws IOException 
+    {
         return (bufferLectura.readLine());
+        
     }
-   
+    
     public byte [] LeerBytes (int tam) throws IOException {
         byte [] b = new byte [tam] ;
         int bytesRead =0;
