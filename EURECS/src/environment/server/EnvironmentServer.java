@@ -147,6 +147,9 @@ public class EnvironmentServer implements Runnable
 								if ((v=DB.getListSensor(ip)) != null)
 								{
 									sm.Escribir("112 OK Start of sensor list \n");
+									String str= Integer.toString(v.size());
+									sm.Escribir(str + "\n");
+									
 									for (i=0; i< v.size(); i++)
 									{
 										sm.Escribir(v.get(i)+ "\n");

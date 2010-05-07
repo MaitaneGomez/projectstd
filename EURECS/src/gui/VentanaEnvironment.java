@@ -12,10 +12,13 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import environment.util.SocketManager;
 
@@ -41,6 +44,8 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JPanel jPanelMiddle;
 	private JLabel jLabelUser;
 	private JTextField jTextFieldIP;
+	private JTable jTable1;
+	private JLabel statusBar;
 	private JButton jButtonOK;
 	private JComboBox jComboBoxMenu;
 	private JLabel jLabelMenu;
@@ -256,21 +261,44 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					        .addGap(0, 0, Short.MAX_VALUE)))
 					.addContainerGap(47, 47));
 			}
+			{
+				statusBar = new JLabel();
+			}
+			{
+				TableModel jTable1Model = 
+					new DefaultTableModel(
+							new String[][] {},
+							new String[] { "List of sensors" });
+				jTable1 = new JTable();
+				jTable1.setModel(jTable1Model);
+			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
 				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(26, Short.MAX_VALUE));
-			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
-				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, 0, 447, Short.MAX_VALUE)
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelMiddle, 0, 441, Short.MAX_VALUE)
-				        .addGap(6))
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 6, Short.MAX_VALUE)))
-				.addContainerGap(219, 219));
+				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addGap(38)
+				.addComponent(jTable1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(81, Short.MAX_VALUE));
+			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
+				.addGroup(thisLayout.createSequentialGroup()
+				    .addGroup(thisLayout.createParallelGroup()
+				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				            .addComponent(jPanelUp, 0, 447, Short.MAX_VALUE)
+				            .addGap(219))
+				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				            .addComponent(jPanelMiddle, 0, 441, Short.MAX_VALUE)
+				            .addGap(225))
+				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				            .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)
+				            .addGap(0, 225, Short.MAX_VALUE))
+				        .addComponent(statusBar, GroupLayout.Alignment.LEADING, 0, 666, Short.MAX_VALUE))
+				    .addContainerGap())
+				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				    .addGap(77)
+				    .addComponent(jTable1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+				    .addContainerGap(451, Short.MAX_VALUE)));
 			pack();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -329,7 +357,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					//jLabelQuest.setVisible(true);
 					//jLabelIp.setVisible(true);
 					//jTextFieldIP.setVisible(true);
-					//jButtonNext.setVisible(true);
+					jButtonNext.setVisible(true);
 					
 					
 				}
@@ -366,9 +394,25 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				if (resp.startsWith("OK,")) 
 				{
 					statusBar.setText(resp);
+					
+                    sm.Escribir("LISTSENSOR" + "\n");
+                    System.out.println(sm.Leer());
+                    String str= sm.Leer();
+                    int num = Integer.parseInt(str);
+                    for(int i=0;i<=num;i++)
+                    {
+                            String resultado = sm.Leer();
+                            System.out.println(resultado); 
+                            //jTable1.setValueAt(resultado, i, 0);
+                            
+                    }
+                    System.out.println(sm.Leer());
+					
+					
+					/* PASAR A OTRA VENTANA	
 					menuGUI ventana= new menuGUI();
 					ventana.setVisible(true);  
-					this.dispose();
+					this.dispose();*/	
 				}
 				else if (resp.startsWith("ERR,")) 
 				{
