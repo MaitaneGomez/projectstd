@@ -3,9 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,10 +39,12 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	
 	private JPanel jPanelUp;
 	private JPanel jPanelMiddle;
-	private JPanel jPanelDown;
 	private JLabel jLabelUser;
 	private JTextField jTextFieldIP;
-	private JLabel statusBar;
+	private JButton jButtonOK;
+	private JComboBox jComboBoxMenu;
+	private JLabel jLabelMenu;
+	private JPanel jPanelMenu;
 	private JButton jButtonLogPass;
 	private JButton jButtonNext;
 	private JLabel jLabelIp;
@@ -94,14 +99,14 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				{
 					jLabelUser = new JLabel();
 					jLabelUser.setText("User :");
-					jLabelUser.setFont(new java.awt.Font("Segoe Print",1,16));
+					jLabelUser.setFont(new java.awt.Font("Segoe Print",1,14));
 				}
 				{
 					jButtonLogPass = new JButton();
 					jButtonLogPass.setText("Login Password");
-					jButtonLogPass.setFont(new java.awt.Font("Segoe Print",1,16));
+					jButtonLogPass.setFont(new java.awt.Font("Segoe Print",1,14));
 					jButtonLogPass.addActionListener(this);
-					jButtonLogPass.setVisible(false);
+					//jButtonLogPass.setVisible(false);
 				}
 				{
 					jTextFieldUser = new JTextField();
@@ -109,50 +114,50 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				{
 					jLabelPass = new JLabel();
 					jLabelPass.setText("Password:");
-					jLabelPass.setFont(new java.awt.Font("Segoe Print",1,16));
-					jLabelPass.setVisible(false);
+					jLabelPass.setFont(new java.awt.Font("Segoe Print",1,14));
+					//jLabelPass.setVisible(false);
 				}
 				{
 					jTextFieldPass = new JTextField();
-					jTextFieldPass.setVisible(false);
+					//jTextFieldPass.setVisible(false);
 				}
 				{
 					jButtonLogUser = new JButton();
 					jButtonLogUser.setText("Login User");
-					jButtonLogUser.setFont(new java.awt.Font("Segoe Print",1,16));
+					jButtonLogUser.setFont(new java.awt.Font("Segoe Print",1,14));
 					jButtonLogUser.addActionListener(this);
 				}
 				jPanelUpLayout.setHorizontalGroup(jPanelUpLayout.createSequentialGroup()
-					.addContainerGap(38, 38)
+					.addContainerGap(24, 24)
 					.addGroup(jPanelUpLayout.createParallelGroup()
-					    .addComponent(jLabelPass, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelUpLayout.createSequentialGroup()
-					        .addComponent(jLabelUser, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					        .addGap(41)))
+					        .addComponent(jLabelUser, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					        .addGap(35))
+					    .addComponent(jLabelPass, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 					.addGroup(jPanelUpLayout.createParallelGroup()
-					    .addComponent(jTextFieldPass, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jTextFieldUser, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
-					.addGap(105)
+					    .addComponent(jTextFieldPass, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jTextFieldUser, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE))
+					.addGap(28)
 					.addGroup(jPanelUpLayout.createParallelGroup()
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelUpLayout.createSequentialGroup()
+					        .addComponent(jButtonLogUser, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 24, Short.MAX_VALUE))
 					    .addGroup(jPanelUpLayout.createSequentialGroup()
-					        .addComponent(jButtonLogUser, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
-					    .addGroup(jPanelUpLayout.createSequentialGroup()
-					        .addComponent(jButtonLogPass, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(83, Short.MAX_VALUE));
+					        .addComponent(jButtonLogPass, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 0, Short.MAX_VALUE)))
+					.addContainerGap(17, 17));
 				jPanelUpLayout.setVerticalGroup(jPanelUpLayout.createSequentialGroup()
-					.addContainerGap(60, 60)
-					.addGroup(jPanelUpLayout.createParallelGroup()
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelUpLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-					        .addComponent(jButtonLogUser, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-					        .addComponent(jTextFieldUser, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelUpLayout.createSequentialGroup()
-					        .addComponent(jLabelUser, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					        .addGap(10)))
+					.addContainerGap(33, 33)
 					.addGroup(jPanelUpLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-					    .addComponent(jLabelPass, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jTextFieldPass, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonLogPass, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(48, 48));
+					    .addComponent(jButtonLogUser, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jTextFieldUser, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jLabelUser, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+					.addGroup(jPanelUpLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					    .addComponent(jButtonLogPass, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jTextFieldPass, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jLabelPass, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(31, 31));
 			}
 			{
 				jPanelMiddle = new JPanel();
@@ -162,17 +167,17 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelQuest = new JLabel();
 					jLabelQuest.setText("What vehicle do you want ?");
 					jLabelQuest.setFont(new java.awt.Font("Segoe Print",1,16));
-					jLabelQuest.setVisible(false);
+					//jLabelQuest.setVisible(false);
 				}
 				{
 					jLabelIp = new JLabel();
 					jLabelIp.setText("IP :");
 					jLabelIp.setFont(new java.awt.Font("Segoe Print",1,16));
-					jLabelIp.setVisible(false);
+					//jLabelIp.setVisible(false);
 				}
 				{
 					jTextFieldIP = new JTextField();
-					jTextFieldIP.setVisible(false);
+					//jTextFieldIP.setVisible(false);
 				}
 				{
 					jButtonNext = new JButton();
@@ -182,53 +187,90 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jButtonNext.addActionListener(this);
 				}
 				jPanelMiddleLayout.setHorizontalGroup(jPanelMiddleLayout.createSequentialGroup()
-					.addContainerGap(72, 72)
-					.addComponent(jLabelIp, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-					.addGap(28)
+					.addContainerGap(59, 59)
 					.addGroup(jPanelMiddleLayout.createParallelGroup()
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMiddleLayout.createSequentialGroup()
-					        .addComponent(jTextFieldIP, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE)
-					        .addGap(54))
+					        .addComponent(jLabelIp, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+					        .addComponent(jTextFieldIP, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMiddleLayout.createSequentialGroup()
-					        .addGap(54)
-					        .addComponent(jLabelQuest, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(43)
-					.addComponent(jButtonNext, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(54, Short.MAX_VALUE));
+					        .addPreferredGap(jLabelIp, jLabelQuest, LayoutStyle.ComponentPlacement.INDENT)
+					        .addComponent(jLabelQuest, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					        .addGap(10)))
+					.addGap(48)
+					.addComponent(jButtonNext, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(21, Short.MAX_VALUE));
 				jPanelMiddleLayout.setVerticalGroup(jPanelMiddleLayout.createSequentialGroup()
-					.addContainerGap()
+					.addContainerGap(29, 29)
 					.addComponent(jLabelQuest, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addGap(0, 33, Short.MAX_VALUE)
 					.addGroup(jPanelMiddleLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					    .addComponent(jLabelIp, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jTextFieldIP, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonNext, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(25, 25));
+					    .addComponent(jTextFieldIP, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jButtonNext, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(17, 17));
 			}
 			{
-				jPanelDown = new JPanel();
-				GroupLayout jPanelDownLayout = new GroupLayout((JComponent)jPanelDown);
-				jPanelDown.setLayout(jPanelDownLayout);
+				jPanelMenu = new JPanel();
+				GroupLayout jPanelMenuLayout = new GroupLayout((JComponent)jPanelMenu);
+				jPanelMenu.setLayout(jPanelMenuLayout);
+				jPanelMenu.setFont(new java.awt.Font("Segoe Print",1,14));
 				{
-					statusBar = new JLabel();
-					statusBar.setText("");
-
+					jLabelMenu = new JLabel();
+					jLabelMenu.setText("What do you want to do?");
+					jLabelMenu.setFont(new java.awt.Font("Segoe Print",1,14));
 				}
-					jPanelDownLayout.setHorizontalGroup(jPanelDownLayout.createSequentialGroup()
-					.addComponent(statusBar, 0, 666, Short.MAX_VALUE));
-					jPanelDownLayout.setVerticalGroup(jPanelDownLayout.createSequentialGroup()
-					.addContainerGap(18, Short.MAX_VALUE)
-					.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, 12, GroupLayout.PREFERRED_SIZE));
+				{
+					ComboBoxModel jComboBoxMenuModel = 
+						new DefaultComboBoxModel(
+								new String[] { "Item One", "Item Two" });
+					jComboBoxMenu = new JComboBox();
+					jComboBoxMenu.setModel(jComboBoxMenuModel);
+				}
+				{
+					jButtonOK = new JButton();
+					jButtonOK.setText("OK");
+					jButtonOK.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+					jPanelMenuLayout.setHorizontalGroup(jPanelMenuLayout.createSequentialGroup()
+					.addContainerGap(94, 94)
+					.addGroup(jPanelMenuLayout.createParallelGroup()
+					    .addComponent(jLabelMenu, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+					        .addComponent(jComboBoxMenu, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
+					        .addGap(10)))
+					.addGap(53)
+					.addComponent(jButtonOK, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(38, Short.MAX_VALUE));
+					jPanelMenuLayout.setVerticalGroup(jPanelMenuLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jLabelMenu, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+					.addGap(45)
+					.addGroup(jPanelMenuLayout.createParallelGroup()
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+					        .addComponent(jComboBoxMenu, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE))
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					        .addComponent(jButtonOK, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 0, Short.MAX_VALUE)))
+					.addContainerGap(47, 47));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
-				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(jPanelDown, 0, 49, Short.MAX_VALUE));
-			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
-				.addComponent(jPanelUp, GroupLayout.Alignment.LEADING, 0, 666, Short.MAX_VALUE)
-				.addComponent(jPanelMiddle, GroupLayout.Alignment.LEADING, 0, 666, Short.MAX_VALUE)
-				.addComponent(jPanelDown, GroupLayout.Alignment.LEADING, 0, 666, Short.MAX_VALUE));
+				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+				.addContainerGap(26, Short.MAX_VALUE));
+			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, 0, 447, Short.MAX_VALUE)
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelMiddle, 0, 441, Short.MAX_VALUE)
+				        .addGap(6))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 6, Short.MAX_VALUE)))
+				.addContainerGap(219, 219));
 			pack();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -254,9 +296,9 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				if (resp.startsWith("201")) 
 				{
 					statusBar.setText(resp);
-					jLabelPass.setVisible(true);
-					jButtonLogPass.setVisible(true);
-					jTextFieldPass.setVisible(true);
+					//jLabelPass.setVisible(true);
+					//jButtonLogPass.setVisible(true);
+					//jTextFieldPass.setVisible(true);
 					//Dejar que se escriba en el password
 				}
 				else if ((resp.startsWith("400")) || (resp.startsWith("401")))
@@ -284,10 +326,10 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				if (resp.startsWith("202")) 
 				{
 					statusBar.setText(resp);
-					jLabelQuest.setVisible(true);
-					jLabelIp.setVisible(true);
-					jTextFieldIP.setVisible(true);
-					jButtonNext.setVisible(true);
+					//jLabelQuest.setVisible(true);
+					//jLabelIp.setVisible(true);
+					//jTextFieldIP.setVisible(true);
+					//jButtonNext.setVisible(true);
 					
 					
 				}
