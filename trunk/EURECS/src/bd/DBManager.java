@@ -90,14 +90,15 @@ public class DBManager
 		{
 			sensors= new Vector<String>();
 			Statement stmt=con.createStatement();
-			String query= ("SELECT * FROM Sensors WHERE ID_V= (SELECT ID FROM Vehicle WHERE IP = '" + ip + "')");
+			String query= ("SELECT * FROM Sensors WHERE ID_V= (SELECT ID_V FROM Vehicles WHERE IP = '" + ip + "')");
 			ResultSet rs=stmt.executeQuery(query);
 			String sens="";
 			while (rs.next())
 			{
-				sens= rs.getString("ID_V") + ";" + rs.getString("NAME") + ";" + rs.getString("STATE");
+				sens= rs.getString("ID_S") + ";" + rs.getString("Name") + ";" + rs.getString("State");
 				sensors.add(sens);
-			}		
+			}	
+			stmt.close();
 		} 
 		catch (SQLException e) 
 		{
