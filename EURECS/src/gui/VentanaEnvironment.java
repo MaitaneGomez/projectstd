@@ -1,24 +1,26 @@
 package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.Socket;
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import environment.util.SocketManager;
 
@@ -35,8 +37,8 @@ import environment.util.SocketManager;
 * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
-public class VentanaEnvironment extends javax.swing.JFrame implements  ActionListener{
-
+public class VentanaEnvironment extends javax.swing.JFrame implements  ActionListener
+{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -44,7 +46,9 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JPanel jPanelMiddle;
 	private JLabel jLabelUser;
 	private JTextField jTextFieldIP;
-	private JTable jTable1;
+	private JList jListSensor;
+	private JLabel jLabelListSensor;
+	private JPanel jPanelListSensor;
 	private JLabel statusBar;
 	private JButton jButtonOK;
 	private JComboBox jComboBoxMenu;
@@ -105,6 +109,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelUser = new JLabel();
 					jLabelUser.setText("User :");
 					jLabelUser.setFont(new java.awt.Font("Segoe Print",1,14));
+					jLabelUser.setEnabled(true);
 				}
 				{
 					jButtonLogPass = new JButton();
@@ -114,7 +119,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					//jButtonLogPass.setVisible(false);
 				}
 				{
-					jTextFieldUser = new JTextField();
+					jTextFieldUser = new JTextField("stud1");
 				}
 				{
 					jLabelPass = new JLabel();
@@ -123,7 +128,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					//jLabelPass.setVisible(false);
 				}
 				{
-					jTextFieldPass = new JTextField();
+					jTextFieldPass = new JTextField("11");
 					//jTextFieldPass.setVisible(false);
 				}
 				{
@@ -171,49 +176,49 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				{
 					jLabelQuest = new JLabel();
 					jLabelQuest.setText("What vehicle do you want ?");
-					jLabelQuest.setFont(new java.awt.Font("Segoe Print",1,16));
+					jLabelQuest.setFont(new java.awt.Font("Segoe Print",1,14));
 					//jLabelQuest.setVisible(false);
 				}
 				{
 					jLabelIp = new JLabel();
 					jLabelIp.setText("IP :");
-					jLabelIp.setFont(new java.awt.Font("Segoe Print",1,16));
+					jLabelIp.setFont(new java.awt.Font("Segoe Print",1,14));
 					//jLabelIp.setVisible(false);
 				}
 				{
-					jTextFieldIP = new JTextField();
+					jTextFieldIP = new JTextField("128.7.6.5");
 					//jTextFieldIP.setVisible(false);
 				}
 				{
 					jButtonNext = new JButton();
 					jButtonNext.setText("Next");
-					jButtonNext.setFont(new java.awt.Font("Segoe Print",1,16));
-					jButtonNext.setVisible(false);
+					jButtonNext.setFont(new java.awt.Font("Segoe Print",1,14));
+					//jButtonNext.setVisible(false);
 					jButtonNext.addActionListener(this);
 				}
 				jPanelMiddleLayout.setHorizontalGroup(jPanelMiddleLayout.createSequentialGroup()
-					.addContainerGap(59, 59)
+					.addContainerGap()
 					.addGroup(jPanelMiddleLayout.createParallelGroup()
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMiddleLayout.createSequentialGroup()
-					        .addComponent(jLabelIp, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-					        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+					        .addComponent(jLabelIp, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 					        .addComponent(jTextFieldIP, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMiddleLayout.createSequentialGroup()
 					        .addPreferredGap(jLabelIp, jLabelQuest, LayoutStyle.ComponentPlacement.INDENT)
 					        .addComponent(jLabelQuest, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					        .addGap(10)))
-					.addGap(48)
-					.addComponent(jButtonNext, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(21, Short.MAX_VALUE));
+					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
+					.addGap(0, 40, Short.MAX_VALUE)
+					.addComponent(jButtonNext, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(19, 19));
 				jPanelMiddleLayout.setVerticalGroup(jPanelMiddleLayout.createSequentialGroup()
-					.addContainerGap(29, 29)
+					.addContainerGap(17, 17)
 					.addComponent(jLabelQuest, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(0, 33, Short.MAX_VALUE)
+					.addGap(20)
 					.addGroup(jPanelMiddleLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					    .addComponent(jLabelIp, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 					    .addComponent(jTextFieldIP, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonNext, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(17, 17));
+					    .addComponent(jButtonNext, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(34, 34));
 			}
 			{
 				jPanelMenu = new JPanel();
@@ -228,77 +233,110 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				{
 					ComboBoxModel jComboBoxMenuModel = 
 						new DefaultComboBoxModel(
-								new String[] { "Item One", "Item Two" });
+								new String[] {});
 					jComboBoxMenu = new JComboBox();
 					jComboBoxMenu.setModel(jComboBoxMenuModel);
+	
+					jComboBoxMenu.addItem("Select one...");
+					jComboBoxMenu.addItem("List of sensors");
+					jComboBoxMenu.addItem("Sensor activation");
+					jComboBoxMenu.addItem("Sensor desactivation");
+					jComboBoxMenu.addItem("GPS activation");
+					jComboBoxMenu.addItem("GPS desactivation");
+					jComboBoxMenu.addItem("Sensor current value");
+					jComboBoxMenu.addItem("Geolocated picture");
+					jComboBoxMenu.setEnabled(false);
+					//jComboBoxMenu.addMouseListener(this);
+					//jComboBoxMenu.addActionListener(jComboBoxMenu);
+					
+				
+
+					jComboBoxMenu.addActionListener(this);
 				}
 				{
 					jButtonOK = new JButton();
 					jButtonOK.setText("OK");
 					jButtonOK.setFont(new java.awt.Font("Segoe Print",1,14));
+					jButtonOK.addActionListener(this);
 				}
 					jPanelMenuLayout.setHorizontalGroup(jPanelMenuLayout.createSequentialGroup()
-					.addContainerGap(94, 94)
+					.addContainerGap(30, 30)
 					.addGroup(jPanelMenuLayout.createParallelGroup()
-					    .addComponent(jLabelMenu, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
 					        .addComponent(jComboBoxMenu, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
-					        .addGap(10)))
-					.addGap(53)
+					        .addGap(10))
+					    .addComponent(jLabelMenu, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE))
+					.addGap(25)
 					.addComponent(jButtonOK, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(38, Short.MAX_VALUE));
+					.addContainerGap(130, Short.MAX_VALUE));
 					jPanelMenuLayout.setVerticalGroup(jPanelMenuLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(jLabelMenu, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-					.addGap(45)
-					.addGroup(jPanelMenuLayout.createParallelGroup()
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
-					        .addComponent(jComboBoxMenu, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 0, Short.MAX_VALUE))
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelMenuLayout.createSequentialGroup()
-					        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					        .addComponent(jButtonOK, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 0, Short.MAX_VALUE)))
-					.addContainerGap(47, 47));
+					.addComponent(jLabelMenu, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+					.addGap(0, 41, Short.MAX_VALUE)
+					.addGroup(jPanelMenuLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					    .addComponent(jButtonOK, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					    .addComponent(jComboBoxMenu, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(51, 51));
 			}
 			{
 				statusBar = new JLabel();
 			}
 			{
-				TableModel jTable1Model = 
-					new DefaultTableModel(
-							new String[][] {},
-							new String[] { "List of sensors" });
-				jTable1 = new JTable();
-				jTable1.setModel(jTable1Model);
+				jPanelListSensor = new JPanel();
+				GroupLayout jPanelListSensorLayout = new GroupLayout((JComponent)jPanelListSensor);
+				jPanelListSensor.setLayout(jPanelListSensorLayout);
+				{
+					jLabelListSensor = new JLabel();
+					jLabelListSensor.setText("List of Sensors");
+					jLabelListSensor.setFont(new java.awt.Font("Segoe Print",1,14));
+				}
+				{
+					ListModel jListSensorModel = 
+						new DefaultComboBoxModel(
+								new String[] {});
+					jListSensor = new JList();
+					jListSensor.setModel(jListSensorModel);
+				}
+					jPanelListSensorLayout.setHorizontalGroup(jPanelListSensorLayout.createSequentialGroup()
+					.addContainerGap(40, 40)
+					.addGroup(jPanelListSensorLayout.createParallelGroup()
+					    .addComponent(jListSensor, GroupLayout.Alignment.LEADING, 0, 174, Short.MAX_VALUE)
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
+					        .addGap(43)
+					        .addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 28, Short.MAX_VALUE)))
+					.addContainerGap(46, 46));
+					jPanelListSensorLayout.setVerticalGroup(jPanelListSensorLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(22)
+					.addComponent(jListSensor, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(48, Short.MAX_VALUE));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-				.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				.addGap(38)
-				.addComponent(jTable1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-				.addContainerGap(81, Short.MAX_VALUE));
-			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
-				.addGroup(thisLayout.createSequentialGroup()
-				    .addGroup(thisLayout.createParallelGroup()
-				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				            .addComponent(jPanelUp, 0, 447, Short.MAX_VALUE)
-				            .addGap(219))
-				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				            .addComponent(jPanelMiddle, 0, 441, Short.MAX_VALUE)
-				            .addGap(225))
-				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				            .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 441, GroupLayout.PREFERRED_SIZE)
-				            .addGap(0, 225, Short.MAX_VALUE))
-				        .addComponent(statusBar, GroupLayout.Alignment.LEADING, 0, 666, Short.MAX_VALUE))
-				    .addContainerGap())
-				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				    .addGap(77)
-				    .addComponent(jTable1, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-				    .addContainerGap(451, Short.MAX_VALUE)));
+				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+				.addGap(24)
+				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jPanelListSensor, 0, 203, Short.MAX_VALUE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
+			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
+				.addGroup(thisLayout.createParallelGroup()
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelListSensor, 0, 260, Short.MAX_VALUE)
+				        .addGap(421))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 457, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 224, Short.MAX_VALUE))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 318, Short.MAX_VALUE))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 318, Short.MAX_VALUE))
+				    .addComponent(statusBar, GroupLayout.Alignment.LEADING, 0, 681, Short.MAX_VALUE))
+				.addGap(7));
 			pack();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -308,11 +346,10 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		// TODO Auto-generated method stub
+		Object target= e.getSource();
+	
 		
-		JButton button= (JButton)e.getSource();
-		
-		if(button == jButtonLogUser)
+		if(target == jButtonLogUser)
 		{
 			String resp =null;
 			String userName = jTextFieldUser.getText(); //Viene del texto que viene
@@ -342,7 +379,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 		}
 		
-		if(button == jButtonLogPass)
+		if(target == jButtonLogPass)
 		{
 			String resp = null;
 			String userPass=jTextFieldPass.getText();
@@ -381,10 +418,11 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 		}
 		
-		if(button == jButtonNext)
+		if(target == jButtonNext)
 		{
 			String resp = null;
-			String ip=jTextFieldIP.getText();;
+			String ip=jTextFieldIP.getText();
+			jComboBoxMenu.setEnabled(true);
 			
 			try 
 			{
@@ -393,26 +431,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				System.out.println(resp);
 				if (resp.startsWith("OK,")) 
 				{
-					statusBar.setText(resp);
-					
-                    sm.Escribir("LISTSENSOR" + "\n");
-                    System.out.println(sm.Leer());
-                    String str= sm.Leer();
-                    int num = Integer.parseInt(str);
-                    for(int i=0;i<=num;i++)
-                    {
-                            String resultado = sm.Leer();
-                            System.out.println(resultado); 
-                            //jTable1.setValueAt(resultado, i, 0);
-                            
-                    }
-                    System.out.println(sm.Leer());
-					
-					
-					/* PASAR A OTRA VENTANA	
-					menuGUI ventana= new menuGUI();
-					ventana.setVisible(true);  
-					this.dispose();*/	
+					statusBar.setText(resp);					
 				}
 				else if (resp.startsWith("ERR,")) 
 				{
@@ -422,8 +441,65 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				System.err.println(ex);
 			}
 		}	
+		if (target == jButtonOK)
+		{
+			System.out.println("estoy dentro del ok!!!");
+			//for(int i = 0;i<jComboBoxMenu.getItemCount();i++)
+			//{
+				//if(jComboBoxMenu.getItemCount()==1)
+				if(jComboBoxMenu.getSelectedIndex()==1)
+				{
+					jLabelUser.setEnabled(false);
+					
+					System.out.println("estoy dentro del list!!!");
+					String resp = null;
+					String ip=jTextFieldIP.getText();
+					try 
+					{
+						System.out.println("Dentro del try sin hacer nada");
+						sm.Escribir("IP " + ip + "\r\n");
+						resp = sm.Leer();
+						System.out.println(resp);
+						if (resp.startsWith("OK,")) 
+						{
+							statusBar.setText(resp);
+							
+		                    /*sm.Escribir("LISTSENSOR" + "\n");
+		                    System.out.println(sm.Leer());
+		                    String str= sm.Leer();
+		                    int num = Integer.parseInt(str);
+		                    for(int j=0;j<=num;j++)
+		                    {
+		                            String resultado = sm.Leer();
+		                            System.out.println(resultado); 
+		                            //jTable1.setValueAt(resultado, i, 0);
+		                            
+		                    }
+		                    System.out.println(sm.Leer());
+					
+						}
+						else if (resp.startsWith("ERR,")) 
+						{
+							statusBar.setText(resp);*/
+						}
+					} catch(IOException ex) {
+						System.err.println(ex);
+					}
+					
+				}
+				else
+				{
+					System.out.println("NO");
+				}
+			//}
+			
+		}
+			
+			/** ACCIONES DEl COMBO **/
+			
 		
-		
-	}
-
+		}
 }
+
+
+	
