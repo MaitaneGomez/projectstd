@@ -328,10 +328,12 @@ public class EnvironmentServer implements Runnable
 		{
 			e.printStackTrace();
 		}
-		try {
+		try 
+		{
 			sm.CerrarSocket();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) 
+		{
+
 			e.printStackTrace();
 		}
 	}
@@ -343,7 +345,7 @@ public class EnvironmentServer implements Runnable
 	boolean result = false;
 	try
 	{
-		sm.Escriir("Exit\r\n");
+		sm.Escribir("Exit\r\n");
 		resp = sm.leer();
 		System.out.println(resp);
 		
