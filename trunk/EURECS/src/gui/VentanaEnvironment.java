@@ -1,10 +1,13 @@
 package gui;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -13,14 +16,21 @@ import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.LayoutStyle;
 import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.text.TableView.TableRow;
 
 import environment.util.SocketManager;
 
@@ -46,7 +56,8 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JPanel jPanelMiddle;
 	private JLabel jLabelUser;
 	private JTextField jTextFieldIP;
-	private JList jListSensor;
+	private JTextArea jTextArea1;
+	private JTable jTableSensor;
 	private JLabel jLabelListSensor;
 	private JPanel jPanelListSensor;
 	private JLabel statusBar;
@@ -62,7 +73,9 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JTextField jTextFieldPass;
 	private JLabel jLabelPass;
 	private JTextField jTextFieldUser;
+	private DefaultTableModel dtm;
 	private static SocketManager sm;
+
 
 	/**
 	* Auto-generated main method to display this JFrame
@@ -116,7 +129,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jButtonLogPass.setText("Login Password");
 					jButtonLogPass.setFont(new java.awt.Font("Segoe Print",1,14));
 					jButtonLogPass.addActionListener(this);
-					//jButtonLogPass.setVisible(false);
+					jButtonLogPass.setVisible(false);
 				}
 				{
 					jTextFieldUser = new JTextField("stud1");
@@ -125,11 +138,11 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelPass = new JLabel();
 					jLabelPass.setText("Password:");
 					jLabelPass.setFont(new java.awt.Font("Segoe Print",1,14));
-					//jLabelPass.setVisible(false);
+					jLabelPass.setVisible(false);
 				}
 				{
 					jTextFieldPass = new JTextField("11");
-					//jTextFieldPass.setVisible(false);
+					jTextFieldPass.setVisible(false);
 				}
 				{
 					jButtonLogUser = new JButton();
@@ -177,23 +190,23 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelQuest = new JLabel();
 					jLabelQuest.setText("What vehicle do you want ?");
 					jLabelQuest.setFont(new java.awt.Font("Segoe Print",1,14));
-					//jLabelQuest.setVisible(false);
+					jLabelQuest.setEnabled(false);
 				}
 				{
 					jLabelIp = new JLabel();
 					jLabelIp.setText("IP :");
 					jLabelIp.setFont(new java.awt.Font("Segoe Print",1,14));
-					//jLabelIp.setVisible(false);
+					jLabelIp.setEnabled(false);
 				}
 				{
 					jTextFieldIP = new JTextField("128.7.6.5");
-					//jTextFieldIP.setVisible(false);
+					jTextFieldIP.setEnabled(false);
 				}
 				{
 					jButtonNext = new JButton();
 					jButtonNext.setText("Next");
 					jButtonNext.setFont(new java.awt.Font("Segoe Print",1,14));
-					//jButtonNext.setVisible(false);
+					jButtonNext.setEnabled(false);
 					jButtonNext.addActionListener(this);
 				}
 				jPanelMiddleLayout.setHorizontalGroup(jPanelMiddleLayout.createSequentialGroup()
@@ -228,6 +241,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				{
 					jLabelMenu = new JLabel();
 					jLabelMenu.setText("What do you want to do?");
+					jLabelMenu.setEnabled(false);
 					jLabelMenu.setFont(new java.awt.Font("Segoe Print",1,14));
 				}
 				{
@@ -257,6 +271,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jButtonOK = new JButton();
 					jButtonOK.setText("OK");
 					jButtonOK.setFont(new java.awt.Font("Segoe Print",1,14));
+					jButtonOK.setEnabled(false);
 					jButtonOK.addActionListener(this);
 				}
 					jPanelMenuLayout.setHorizontalGroup(jPanelMenuLayout.createSequentialGroup()
@@ -282,6 +297,10 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				statusBar = new JLabel();
 			}
 			{
+				jTextArea1 = new JTextArea();
+				jTextArea1.setText("jTextArea1");
+			}
+			{
 				jPanelListSensor = new JPanel();
 				GroupLayout jPanelListSensorLayout = new GroupLayout((JComponent)jPanelListSensor);
 				jPanelListSensor.setLayout(jPanelListSensorLayout);
@@ -291,50 +310,74 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelListSensor.setFont(new java.awt.Font("Segoe Print",1,14));
 				}
 				{
-					ListModel jListSensorModel = 
-						new DefaultComboBoxModel(
-								new String[] {});
-					jListSensor = new JList();
-					jListSensor.setModel(jListSensorModel);
+					dtm= new DefaultTableModel();
+					 JTable table = new JTable(dtm);
+					 dtm.setRowCount(2);
+					 dtm.setColumnCount(1);
+
+
+				
+				}
+				
+				{
+					TableModel jTableSensorModel = 
+						new DefaultTableModel(
+								new String[][] {{},{}},
+								new String[] { "Column 1" });
+					jTableSensor = new JTable();
+					jTableSensor.setModel(jTableSensorModel);
+					
+					
+
+					
 				}
 					jPanelListSensorLayout.setHorizontalGroup(jPanelListSensorLayout.createSequentialGroup()
-					.addContainerGap(40, 40)
+					.addContainerGap(53, 53)
 					.addGroup(jPanelListSensorLayout.createParallelGroup()
-					    .addComponent(jListSensor, GroupLayout.Alignment.LEADING, 0, 174, Short.MAX_VALUE)
+					    .addGroup(jPanelListSensorLayout.createSequentialGroup()
+					        .addComponent(jTableSensor, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+					        .addGap(0, 0, Short.MAX_VALUE))
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					        .addGap(43)
+					        .addGap(30)
 					        .addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 28, Short.MAX_VALUE)))
-					.addContainerGap(46, 46));
+					        .addGap(0, 17, Short.MAX_VALUE)))
+					.addContainerGap(57, 57));
 					jPanelListSensorLayout.setVerticalGroup(jPanelListSensorLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(22)
-					.addComponent(jListSensor, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(48, Short.MAX_VALUE));
+					.addGap(45)
+					.addComponent(jTableSensor, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+					.addGap(0, 7, Short.MAX_VALUE));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
 				.addGap(24)
 				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-				.addComponent(jPanelListSensor, 0, 203, Short.MAX_VALUE)
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(jPanelListSensor, GroupLayout.Alignment.LEADING, 0, 203, Short.MAX_VALUE)
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addGap(101)
+				        .addComponent(jTextArea1, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 84, Short.MAX_VALUE)))
 				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelListSensor, 0, 260, Short.MAX_VALUE)
-				        .addGap(421))
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 457, GroupLayout.PREFERRED_SIZE)
 				        .addGap(0, 224, Short.MAX_VALUE))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 318, Short.MAX_VALUE))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
 				        .addGap(0, 318, Short.MAX_VALUE))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 318, Short.MAX_VALUE))
+				        .addComponent(jPanelListSensor, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
+				        .addGap(22)
+				        .addComponent(jTextArea1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 342, Short.MAX_VALUE))
 				    .addComponent(statusBar, GroupLayout.Alignment.LEADING, 0, 681, Short.MAX_VALUE))
 				.addGap(7));
 			pack();
@@ -342,6 +385,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			e.printStackTrace();
 		}
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) 
@@ -355,15 +399,16 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			String userName = jTextFieldUser.getText(); //Viene del texto que viene
 			try 
 			{
+		
 				sm.Escribir("USER " + userName + "\r\n");
 				resp = sm.Leer();
 				System.out.println(resp);
 				if (resp.startsWith("201")) 
 				{
 					statusBar.setText(resp);
-					//jLabelPass.setVisible(true);
-					//jButtonLogPass.setVisible(true);
-					//jTextFieldPass.setVisible(true);
+					jLabelPass.setVisible(true);
+					jButtonLogPass.setVisible(true);
+					jTextFieldPass.setVisible(true);
 					//Dejar que se escriba en el password
 				}
 				else if ((resp.startsWith("400")) || (resp.startsWith("401")))
@@ -391,10 +436,10 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				if (resp.startsWith("202")) 
 				{
 					statusBar.setText(resp);
-					//jLabelQuest.setVisible(true);
-					//jLabelIp.setVisible(true);
-					//jTextFieldIP.setVisible(true);
-					jButtonNext.setVisible(true);
+					jLabelQuest.setEnabled(true);
+					jLabelIp.setEnabled(true);
+					jTextFieldIP.setEnabled(true);
+					jButtonNext.setEnabled(true);
 					
 					
 				}
@@ -422,7 +467,9 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		{
 			String resp = null;
 			String ip=jTextFieldIP.getText();
+			jLabelMenu.setEnabled(true);
 			jComboBoxMenu.setEnabled(true);
+			jButtonOK.setEnabled(true);
 			
 			try 
 			{
@@ -443,63 +490,63 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		}	
 		if (target == jButtonOK)
 		{
+			Vector <String> v = null ;
 			System.out.println("estoy dentro del ok!!!");
-			//for(int i = 0;i<jComboBoxMenu.getItemCount();i++)
-			//{
-				//if(jComboBoxMenu.getItemCount()==1)
 				if(jComboBoxMenu.getSelectedIndex()==1)
 				{
+					System.out.println("estoy dentro del combo!!!");
 					jLabelUser.setEnabled(false);
+					jTextFieldUser.setEnabled(false);
+					jLabelPass.setEnabled(false);
+					jTextFieldPass.setEnabled(false);
 					
 					System.out.println("estoy dentro del list!!!");
-					String resp = null;
-					String ip=jTextFieldIP.getText();
 					try 
 					{
-						System.out.println("Dentro del try sin hacer nada");
-						sm.Escribir("IP " + ip + "\r\n");
-						resp = sm.Leer();
-						System.out.println(resp);
-						if (resp.startsWith("OK,")) 
-						{
-							statusBar.setText(resp);
-							
-		                    /*sm.Escribir("LISTSENSOR" + "\n");
-		                    System.out.println(sm.Leer());
-		                    String str= sm.Leer();
-		                    int num = Integer.parseInt(str);
-		                    for(int j=0;j<=num;j++)
-		                    {
-		                            String resultado = sm.Leer();
-		                            System.out.println(resultado); 
-		                            //jTable1.setValueAt(resultado, i, 0);
-		                            
-		                    }
-		                    System.out.println(sm.Leer());
-					
-						}
-						else if (resp.startsWith("ERR,")) 
-						{
-							statusBar.setText(resp);*/
-						}
-					} catch(IOException ex) {
-						System.err.println(ex);
+					 System.out.println("String1 " );
+					sm.Escribir("LISTSENSOR" + "\n");				
+                    System.out.println(sm.Leer());
+                    String str= sm.Leer();
+                    int num = Integer.parseInt(str);
+                    for(int j=0;j<=num;j++)
+                    {
+                    		v.setSize(v.size() + 1);
+                            String resultado = sm.Leer();
+                            v.add(j,resultado);
+                            System.out.println("String2 " + v.toString());
+                            System.out.println(resultado); 
+                            dtm.insertRow(j,v);
+                          
+                            //dtm.setValueAt(resultado,j,0);
+                            //dtm.setNumRows(dtm.getRowCount()+1);
+                            //dtm.insertRow(j, resultado);
+                            //jTableSensor.setValueAt(resultado,j,0);   
+                           // jTableSensor.addRowSelectionInterval(j, j);
+                            
+                            //System.out.println(sizeT.toString());    
+                            
+             
+                    }
+                    System.out.println(sm.Leer());
+					} 
+					catch (IOException e1) 
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					
+				
 				}
 				else
 				{
-					System.out.println("NO");
+				System.out.println("NO");
 				}
-			//}
+			}
 			
 		}
+
+	
 			
 			/** ACCIONES DEl COMBO **/
 			
 		
 		}
-}
-
-
-	
