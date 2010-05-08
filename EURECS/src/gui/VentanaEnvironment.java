@@ -491,12 +491,13 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					System.out.println("estoy dentro del list!!!");
 					try 
 					{
-					 System.out.println("String1 " );
+					System.out.println("String1 " );
 					sm.Escribir("LISTSENSOR" + "\n");				
-                    System.out.println(sm.Leer());
+                    //System.out.println(sm.Leer());
+                    statusBar.setText(sm.Leer());
                     String str= sm.Leer();
                     int num = Integer.parseInt(str);
-                    for(int j=0;j<=num;j++)
+                    for(int j=0;j<=num-1;j++)
                     {
                     		//v.setSize(v.size() + 1);
                             String resultado = sm.Leer();
@@ -511,10 +512,11 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
                            // jTableSensor.addRowSelectionInterval(j, j);
                             
                             //System.out.println(sizeT.toString());    
-                            
+                           
              
                     }
-                    System.out.println(sm.Leer());
+                    //System.out.println(sm.Leer());
+                    statusBar.setText(sm.Leer());
 					} 
 					catch (IOException e1) 
 					{
