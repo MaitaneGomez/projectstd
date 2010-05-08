@@ -56,7 +56,6 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JPanel jPanelMiddle;
 	private JLabel jLabelUser;
 	private JTextField jTextFieldIP;
-	private JTextArea jTextArea1;
 	private JTable jTableSensor;
 	private JLabel jLabelListSensor;
 	private JPanel jPanelListSensor;
@@ -297,10 +296,6 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				statusBar = new JLabel();
 			}
 			{
-				jTextArea1 = new JTextArea();
-				jTextArea1.setText("jTextArea1");
-			}
-			{
 				jPanelListSensor = new JPanel();
 				GroupLayout jPanelListSensorLayout = new GroupLayout((JComponent)jPanelListSensor);
 				jPanelListSensor.setLayout(jPanelListSensorLayout);
@@ -310,10 +305,10 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jLabelListSensor.setFont(new java.awt.Font("Segoe Print",1,14));
 				}
 				{
-					dtm= new DefaultTableModel();
+					/*dtm= new DefaultTableModel();
 					 JTable table = new JTable(dtm);
 					 dtm.setRowCount(2);
-					 dtm.setColumnCount(1);
+					 dtm.setColumnCount(1);*/
 
 
 				
@@ -349,19 +344,6 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					.addComponent(jTableSensor, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
 					.addGap(0, 7, Short.MAX_VALUE));
 			}
-			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
-				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-				.addGap(24)
-				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jPanelListSensor, GroupLayout.Alignment.LEADING, 0, 203, Short.MAX_VALUE)
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addGap(101)
-				        .addComponent(jTextArea1, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 84, Short.MAX_VALUE)))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
@@ -375,11 +357,17 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				        .addGap(0, 318, Short.MAX_VALUE))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addComponent(jPanelListSensor, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)
-				        .addGap(22)
-				        .addComponent(jTextArea1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-				        .addGap(0, 342, Short.MAX_VALUE))
+				        .addGap(0, 364, Short.MAX_VALUE))
 				    .addComponent(statusBar, GroupLayout.Alignment.LEADING, 0, 681, Short.MAX_VALUE))
 				.addGap(7));
+			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
+				.addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+				.addGap(24)
+				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+				.addComponent(jPanelListSensor, 0, 203, Short.MAX_VALUE)
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
 			pack();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -510,17 +498,16 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
                     int num = Integer.parseInt(str);
                     for(int j=0;j<=num;j++)
                     {
-                    		v.setSize(v.size() + 1);
+                    		//v.setSize(v.size() + 1);
                             String resultado = sm.Leer();
-                            v.add(j,resultado);
-                            System.out.println("String2 " + v.toString());
+                          //  v.add(j,resultado);
                             System.out.println(resultado); 
-                            dtm.insertRow(j,v);
+                            //dtm.insertRow(j,v);
                           
-                            //dtm.setValueAt(resultado,j,0);
+                           // dtm.setValueAt(resultado,j,0);
                             //dtm.setNumRows(dtm.getRowCount()+1);
                             //dtm.insertRow(j, resultado);
-                            //jTableSensor.setValueAt(resultado,j,0);   
+                            jTableSensor.setValueAt(resultado,j,0);   
                            // jTableSensor.addRowSelectionInterval(j, j);
                             
                             //System.out.println(sizeT.toString());    
