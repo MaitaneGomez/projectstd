@@ -24,13 +24,10 @@ public class EnvironmentServer implements Runnable
 		    sm = sManager;
 	}
 	
-	
 	public void run()  //Lo de los estados
 	{
-		
 		try 
-		{
-						
+		{				
 			while(state!=5)
 			{
 				String clientSentence = sm.Leer();
