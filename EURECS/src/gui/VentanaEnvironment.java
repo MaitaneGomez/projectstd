@@ -48,6 +48,12 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JTextField jTextFieldIP;
 	private JLabel jLabelHistory;
 	private JButton jButtonExit;
+	private JButton jButtonOKc;
+	private JTextField jTextFieldCurvalue;
+	private JTextField jTextFieldChooseSC;
+	private JLabel jLabelChooseSC;
+	private JLabel jLabelCurvalue;
+	private JPanel jPanelCurvalue;
 	private JButton jButtonOFF;
 	private JButton jButtonON;
 	private JTextField jTextFieldChooseS;
@@ -295,6 +301,71 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					statusBar = new JLabel();
 				}
 				{
+					jPanelCurvalue = new JPanel();
+					GroupLayout jPanelCurvalueLayout = new GroupLayout((JComponent)jPanelCurvalue);
+					jPanelCurvalue.setLayout(jPanelCurvalueLayout);
+					
+					{
+						jLabelCurvalue = new JLabel();
+						jLabelCurvalue.setText("Sensor current value");
+						jLabelCurvalue.setFont(new java.awt.Font("Segoe Print",1,14));
+						jLabelCurvalue.setEnabled(false);
+					}
+					{
+						jLabelChooseSC = new JLabel();
+						jLabelChooseSC.setText("Choose sensor:");
+						jLabelChooseSC.setFont(new java.awt.Font("Segoe Print",1,12));
+						jLabelChooseSC.setEnabled(false);
+					}
+					{
+						jTextFieldChooseSC = new JTextField();
+						jTextFieldChooseSC.setEnabled(false);
+					}
+					{
+						jTextFieldCurvalue = new JTextField();
+						jTextFieldCurvalue.setEnabled(false);
+					}
+					{
+						jButtonOKc = new JButton();
+						jButtonOKc.setText("OK");
+						jButtonOKc.setFont(new java.awt.Font("Segoe Print",1,12));
+						jButtonOKc.addActionListener(this);
+						jButtonOKc.setEnabled(true);
+					}
+					jPanelCurvalueLayout.setHorizontalGroup(jPanelCurvalueLayout.createSequentialGroup()
+						.addContainerGap(23, 23)
+						.addGroup(jPanelCurvalueLayout.createParallelGroup()
+						    .addGroup(GroupLayout.Alignment.LEADING, jPanelCurvalueLayout.createSequentialGroup()
+						        .addComponent(jLabelChooseSC, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						        .addComponent(jTextFieldChooseSC, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+						        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						        .addComponent(jButtonOKc, 0, 54, Short.MAX_VALUE))
+						    .addGroup(jPanelCurvalueLayout.createSequentialGroup()
+						        .addGap(20)
+						        .addGroup(jPanelCurvalueLayout.createParallelGroup()
+						            .addGroup(jPanelCurvalueLayout.createSequentialGroup()
+						                .addComponent(jTextFieldCurvalue, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
+						                .addGap(0, 0, Short.MAX_VALUE))
+						            .addGroup(GroupLayout.Alignment.LEADING, jPanelCurvalueLayout.createSequentialGroup()
+						                .addPreferredGap(jTextFieldCurvalue, jLabelCurvalue, LayoutStyle.ComponentPlacement.INDENT)
+						                .addComponent(jLabelCurvalue, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						                .addGap(0, 34, Short.MAX_VALUE)))
+						        .addGap(48)))
+						.addContainerGap());
+					jPanelCurvalueLayout.setVerticalGroup(jPanelCurvalueLayout.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(jLabelCurvalue, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(jPanelCurvalueLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						    .addComponent(jLabelChooseSC, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						    .addComponent(jTextFieldChooseSC, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						    .addComponent(jButtonOKc, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addGap(0, 18, Short.MAX_VALUE)
+						.addComponent(jTextFieldCurvalue, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap());
+				}
+				{
 					jPanelChange = new JPanel();
 					GroupLayout jPanelChangeLayout = new GroupLayout((JComponent)jPanelChange);
 					jPanelChange.setLayout(jPanelChangeLayout);
@@ -468,12 +539,11 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addGroup(thisLayout.createParallelGroup()
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelChange, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-				        .addGap(38))
-				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-				        .addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)))
+				    .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jPanelChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+				.addGroup(thisLayout.createParallelGroup()
+				    .addComponent(jPanelMiddle, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(jPanelCurvalue, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
 				.addGap(22)
 				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 				.addGroup(thisLayout.createParallelGroup()
@@ -489,7 +559,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				    .addComponent(jButtonExit, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 				    .addGap(0, 21, Short.MAX_VALUE))
-				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				.addGroup(thisLayout.createSequentialGroup()
 				    .addGroup(thisLayout.createParallelGroup()
 				        .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 445, GroupLayout.PREFERRED_SIZE)
 				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
@@ -498,7 +568,9 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				            .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
 				            .addGap(82)))
-				    .addComponent(jPanelChange, 0, 295, Short.MAX_VALUE))
+				    .addGroup(thisLayout.createParallelGroup()
+				        .addComponent(jPanelChange, GroupLayout.Alignment.LEADING, 0, 295, Short.MAX_VALUE)
+				        .addComponent(jPanelCurvalue, GroupLayout.Alignment.LEADING, 0, 295, Short.MAX_VALUE)))
 				.addComponent(statusBar, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 740, GroupLayout.PREFERRED_SIZE));
 			pack();
 		} catch (Exception e) {
@@ -732,7 +804,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			else if ( change == "sensor")
 			{
 				String resp =null;
-				String idSensor = jTextFieldUser.getText();
+				String idSensor = jTextFieldChooseS.getText();
 				try 
 				{
 					System.out.println("Estamos dentro del boton ON");
@@ -829,6 +901,43 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 			}
 		}
+		
+		if(target ==jButtonOKc)
+		{
+			String resp =null;
+			String idSensor = jTextFieldUser.getText();
+			try 
+			{
+				sm.Escribir("GET_CURVALUE " + idSensor + "\r\n");
+				resp = sm.Leer();
+				System.out.println(resp);
+				if (resp.startsWith("416")) 
+				{
+					statusBar.setText(resp);
+					jTextFieldChooseSC.setText("");
+				}
+				else if (resp.startsWith("114"))
+				{
+					statusBar.setText(resp);
+					jTextFieldChooseSC.setText("");
+				} 
+				else if (resp.startsWith("414"))
+				{
+					statusBar.setText(resp);
+					jTextFieldChooseSC.setText("");
+				}
+				else if (resp.startsWith("415"))
+				{
+					statusBar.setText(resp);
+					jTextFieldChooseSC.setText("");
+				}
+			}
+			catch(IOException ex) 
+			{
+				System.err.println(ex);
+				jTextFieldChooseSC.setText("");
+			}
+		}
 
 		if (target == jButtonOK)
 		{
@@ -909,7 +1018,15 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jButtonON.setEnabled(false);
 					
 					
-				}				
+				}	
+				else if(jComboBoxMenu.getSelectedIndex()==7)
+				{
+					jLabelCurvalue.setEnabled(true);
+					jLabelChooseSC.setEnabled(true);
+					jTextFieldCurvalue.setEnabled(true);
+					jTextFieldChooseSC.setEnabled(true);
+					jButtonOKc.setEnabled(true);
+				}
 			}
 		}	
 }

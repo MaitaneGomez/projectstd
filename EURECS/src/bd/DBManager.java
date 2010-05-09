@@ -26,8 +26,7 @@ public class DBManager
          catch(Exception e)
          { 
                  System.out.println("Cannot load the JDBC-ODBC Driver"); 
-         }
-	
+         }	
 	}
 	
 	public boolean checkUser(String user) 
@@ -133,15 +132,16 @@ public class DBManager
 		
 		return measurements;		
 	}
-	
-	
+		
 	//Nombres de las BD a revisar!!!!!
 	public boolean getState(String idSensor)
 	{
 		try 
 		{
 			Statement stmt= con.createStatement();
-			String query = ("SELECT * FROM Sensor WHERE idSensor = '" + idSensor + "'");
+			System.out.println("Antes de entrar a la select");
+			String query = ("SELECT * FROM Sensors WHERE idSensor = '" + idSensor + "'");
+			System.out.println("Despues de ejecutar la select");
 			ResultSet rs= stmt.executeQuery(query);
 			String state="";
 			if (rs.next())
@@ -222,8 +222,8 @@ public class DBManager
 			rs.close();	
 		}
 		
-		catch (SQLException e) {
-			
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 			System.out.println("Problem in the data base with the State");
 		}
@@ -270,8 +270,7 @@ public class DBManager
 			hora =c.get(Calendar.HOUR_OF_DAY);
 			minutos = c.get(Calendar.MINUTE);
 			segundos = c.get(Calendar.SECOND);
-			
-			
+						
 			Statement stmt= con.createStatement();
 			String query1 = ("SELECT VALUE FROM Sensors WHERE ID_S = '" + idSensor + "'");
 			String query2 = ("SELECT COORD FROM GPS WHERE ID_V = (SELECT ID_V FROM Sensors WHERE ID_S = '" + idSensor + "')");
@@ -283,9 +282,7 @@ public class DBManager
 			rs2.next();
 			coord = rs2.getString(1);
 			
-			curvalue= dia + "/" + mes + "/" + annio + ";" + hora + ":" + minutos + ":" + segundos + ";" + coord + ";" + value;
-				
-			
+			curvalue= dia + "/" + mes + "/" + annio + ";" + hora + ":" + minutos + ":" + segundos + ";" + coord + ";" + value;					
 		} 
 		catch (SQLException e) 
 		{
@@ -293,8 +290,6 @@ public class DBManager
 		}
 		
 		return curvalue;
-		
-
 	}
 	
 	public String getPicture(String ip) 
@@ -309,8 +304,8 @@ public class DBManager
 			picture = rs.getString("Picture");
 			rs.close();			
 		} 
-		catch (SQLException e) {
-			
+		catch (SQLException e) 
+		{			
 			e.printStackTrace();
 			//System.out.println("Problem in the data base with the State");
 		}
@@ -329,14 +324,13 @@ public class DBManager
 			coord = rs.getString("Coord");
 			rs.close();
 		}
-		catch (SQLException e) {
-			
+		catch (SQLException e) 
+		{			
 			e.printStackTrace();
 			//System.out.println("Problem in the data base with the State");
 		}
 		return coord;
 	}
-
 	
 	public void disconnect()
 	{
@@ -350,9 +344,6 @@ public class DBManager
 			System.out.println("Disconnection fail");
 		}
 	}
-
-	
-
 }
 
 	
