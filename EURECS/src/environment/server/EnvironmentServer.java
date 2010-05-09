@@ -206,8 +206,7 @@ public class EnvironmentServer implements Runnable
 							  			else
 							  			{
 							  				DB.changeState(idSensor,p);
-							  				//y si el sensor que ha escrito esta mal?
-							  				
+							  				//y si el sensor que ha escrito esta mal?					  				
 							  			}	
 						  			}
 						  			else sm.Escribir("417 ERR Unknown sensor");
@@ -264,7 +263,7 @@ public class EnvironmentServer implements Runnable
 							{
 								boolean p=false;
 								boolean gps = DB.getGps(ip);
-						  		if(gps)
+						  		if(!gps)
 						  		{
 						  			DB.changeGps(ip,p);
 						  			sm.Escribir("206 OK GPS desactivated \n");
