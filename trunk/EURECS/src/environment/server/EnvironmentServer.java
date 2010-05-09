@@ -199,6 +199,8 @@ public class EnvironmentServer implements Runnable
 						  			if(DB.checkSensor(idSensor,ip))
 						  			{
 							  			p = DB.getState(idSensor);
+							  			//System.out.println("Estado del sensor" + DB.getState(idSensor));
+							  			//System.out.println("Valor de p" + p);
 							  			if(p)
 							  			{
 							  				sm.Escribir("418 ERROR Sensor already activated " + "\n");
