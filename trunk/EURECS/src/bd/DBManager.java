@@ -38,7 +38,7 @@ public class DBManager
 			String query = ("SELECT * FROM Users WHERE user = '" +user +"'");
 			ResultSet rs = stmt.executeQuery(query);
 			p = rs.next();
-			rs.close();
+			stmt.close();
 		}
 		catch(SQLException se)
 		{
@@ -56,7 +56,7 @@ public class DBManager
 			String query = ("SELECT * FROM Users WHERE user = '" + user +"' and password = '" + password +"'");
 			ResultSet rs = stmt.executeQuery(query);
 			p = rs.next();
-			rs.close();
+			stmt.close();
 		}
 		catch(SQLException se)
 		{
@@ -73,7 +73,7 @@ public class DBManager
 			String query = ("SELECT * FROM Vehicles WHERE IP = '" + ip + "'");
 			ResultSet rs= stmt.executeQuery(query);
 			p=rs.next();
-			rs.close();			
+			stmt.close();			
 		} 
 		catch (SQLException e) 
 		{
@@ -116,12 +116,12 @@ public class DBManager
 		{
 			measurements= new Vector<String>();
 			Statement stmt=con.createStatement();
-			String query= ("SELECT * FROM Measurements WHERE ID_S ='" + idSensor + "'"); 
+			String query= ("SELECT * FROM Measurements WHERE ID_S= '" + idSensor + "'");
 			ResultSet rs=stmt.executeQuery(query);
 			String mens="";
 			while (rs.next())
 			{
-				mens= rs.getString("Date") + ";" + rs.getString("Time") + ";" + rs.getString("Coord") + ":" + rs.getString("Value");
+				mens= "Date: " + rs.getString("Date") + "; Time: " + rs.getString("Time") + "; Coords: " + rs.getString("Coord") + ": Value: " + rs.getString("Value");
 				measurements.add(mens);
 			}		
 		} 

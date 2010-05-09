@@ -165,10 +165,13 @@ public class EnvironmentServer implements Runnable
 									
 									Vector<String> v=null;
 									int i=0;
+									v=DB.getMeasurements(idSensor);
 									
-									if ((v=DB.getMeasurements(idSensor)) != null)
+									if ( v.size() !=0)
 									{
 										sm.Escribir("113 OK Start of measurement list \n");
+										String str= Integer.toString(v.size());
+										sm.Escribir(str + "\n");
 										for (i=0; i< v.size(); i++)
 										{
 											sm.Escribir(v.get(i)+ "\n");

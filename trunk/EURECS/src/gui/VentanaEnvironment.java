@@ -391,6 +391,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jButtonOKh.setText("OK");
 					jButtonOKh.setFont(new java.awt.Font("Segoe Print",1,12));
 					jButtonOKh.setEnabled(false);
+					jButtonOKh.addActionListener(this);
 				}
 				{
 					jLabelChoose = new JLabel();
@@ -603,41 +604,49 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		}	
 		if(target ==jButtonOKh)
 		{
-			/*String resp = null;
+			String resp= null;
 			String sensor=jTextFieldChoose.getText();
 			try 
 			{
-				sm.Escribir("HISTORYLOG " + sensor + "\r\n");
-				resp = sm.Leer();
+				sm.Escribir("HISTORYLOG " + sensor + "\r\n");                
+                
+                resp = sm.Leer();
 				System.out.println(resp);
-				if (resp.startsWith("202")) 
+				
+				if (resp.startsWith("113")) 
 				{
 					statusBar.setText(resp);
-					jLabelQuest.setEnabled(true);
-					jLabelIp.setEnabled(true);
-					jTextFieldIP.setEnabled(true);
-					jButtonNext.setEnabled(true);
-					
+					String str= sm.Leer();
+	                int num = Integer.parseInt(str);
+	                System.out.println(str);
+	                for(int j=0;j<=num-1;j++)
+	                {
+	                        String resultado = sm.Leer();
+	                        System.out.println(resultado); 
+	                        jTableSensor.setValueAt(resultado,j,0);   
+	                }
+	                String finList= sm.Leer();
+	                statusBar.setText(finList);
+	                System.out.println(finList);
+	                
 					
 				}
-				else if ((resp.startsWith("403"))) 
+				else if ((resp.startsWith("414"))) 
 				{
 					statusBar.setText(resp);
-					jTextFieldUser.setText("");
-					jTextFieldPass.getText();
+					jTextFieldChoose.setText(" ");
 					
 				}
-				else if ((resp.startsWith("402")))
+				else if ((resp.startsWith("415")))
 				{
 					statusBar.setText(resp);
-					jTextFieldUser.setText("");
-					jTextFieldPass.setText("");
+					jTextFieldChoose.setText("");
 				}
 			} 
 			catch(IOException ex) 
 			{
 				System.err.println(ex);
-			}*/
+			}
 			
 		}
 		if(target == jButtonOFF)
