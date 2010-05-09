@@ -368,9 +368,6 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					 JTable table = new JTable(dtm);
 					 dtm.setRowCount(2);
 					 dtm.setColumnCount(1);*/
-
-
-				
 				}
 				
 				{
@@ -604,8 +601,43 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				System.err.println(ex);
 			}
 		}	
-		if(target ==jButtonOK)
+		if(target ==jButtonOKh)
 		{
+			/*String resp = null;
+			String sensor=jTextFieldChoose.getText();
+			try 
+			{
+				sm.Escribir("HISTORYLOG " + sensor + "\r\n");
+				resp = sm.Leer();
+				System.out.println(resp);
+				if (resp.startsWith("202")) 
+				{
+					statusBar.setText(resp);
+					jLabelQuest.setEnabled(true);
+					jLabelIp.setEnabled(true);
+					jTextFieldIP.setEnabled(true);
+					jButtonNext.setEnabled(true);
+					
+					
+				}
+				else if ((resp.startsWith("403"))) 
+				{
+					statusBar.setText(resp);
+					jTextFieldUser.setText("");
+					jTextFieldPass.getText();
+					
+				}
+				else if ((resp.startsWith("402")))
+				{
+					statusBar.setText(resp);
+					jTextFieldUser.setText("");
+					jTextFieldPass.setText("");
+				}
+			} 
+			catch(IOException ex) 
+			{
+				System.err.println(ex);
+			}*/
 			
 		}
 		if(target == jButtonOFF)
@@ -614,19 +646,24 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		}
 		if(target == jButtonExit)
 		{			
-			String resp = null;
 			try 
-			{
-				System.exit(0);	
-				sm.Escribir("Exit\r\n");
+			{	
+				sm.Escribir("QUIT");
+				sm.CerrarStreams();
+				sm.CerrarSocket();
+				
+				System.exit(0);
+				
+				/*sm.Escribir("QUIT");
 				resp = sm.Leer();
 				System.out.println(resp);
 				
 				if (resp.startsWith("208"))
-				{				
+				{	
 					sm.CerrarStreams();
 					sm.CerrarSocket();
-				}				
+					//System.exit(0);
+				}	*/		
 			} 			
 			catch (IOException e1) 
 			{
