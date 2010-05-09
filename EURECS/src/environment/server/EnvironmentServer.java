@@ -41,7 +41,9 @@ public class EnvironmentServer implements Runnable
 				
 				if (command.equalsIgnoreCase("QUIT"))
 				{
-					sm.Escribir("208 OK Bye \n");
+					//String str= sm.Leer();
+					//state = Integer.parseInt(str);
+					//sm.Escribir("208 OK Bye \n");
 					state=5;
 				}
 				else 
@@ -338,36 +340,3 @@ public class EnvironmentServer implements Runnable
 		}
 	}
 }
-
-/*	public boolean Exit()
-{
-	String resp = null;
-	boolean result = false;
-	try
-	{
-		sm.Escribir("Exit\r\n");
-		resp = sm.leer();
-		System.out.println(resp);
-		
-		if (resp.starWith("208"))
-		{
-		
-			sm.cerrarStreams();
-			sm.cerrarSockets();
-			result = true;
-		}
-	}
-	catch(IOException e) 
-	{
-		System.err.println(e);
-	}
-	return result;
-	
-}
-
-}
-*/
-
-
-
-
