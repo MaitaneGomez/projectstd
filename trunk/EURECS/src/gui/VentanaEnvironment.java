@@ -50,8 +50,10 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JButton jButtonExit;
 	private JButton jButtonOFF;
 	private JButton jButtonON;
-	private JLabel jLabelChangeGPS;
-	private JLabel jLabelChangeSensor;
+	private JTextField jTextFieldChooseS;
+	private JLabel jLabelChooseC;
+	private JLabel jLabelChangeG;
+	private JLabel jLabelChangeS;
 	private JPanel jPanelChange;
 	private JButton jButtonOKh;
 	private JTextField jTextFieldChoose;
@@ -73,6 +75,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JLabel jLabelPass;
 	private JTextField jTextFieldUser;
 	private static SocketManager sm;
+	private String change = "nada";
 
 
 	/**
@@ -295,57 +298,77 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jPanelChange = new JPanel();
 					GroupLayout jPanelChangeLayout = new GroupLayout((JComponent)jPanelChange);
 					jPanelChange.setLayout(jPanelChangeLayout);
-					
-				{
-					jLabelChangeSensor = new JLabel();
-					jLabelChangeSensor.setText("Change the state of the sensor");
-					jLabelChangeSensor.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelChangeSensor.setVisible(false);
-				}
-				{
-					jLabelChangeGPS = new JLabel();
-					jLabelChangeGPS.setText("Change the state of the GPS");
-					jLabelChangeGPS.setFont(new java.awt.Font("Segoe Print",1,14));
-					jLabelChangeGPS.setVisible(false);
-				}
-				{
-					jButtonON = new JButton();
-					jButtonON.setText("ON");
-					jButtonON.setFont(new java.awt.Font("Segoe Print",1,14));
-					jButtonON.setVisible(false);
-				}
-				{
-					jButtonOFF = new JButton();
-					jButtonOFF.setText("OFF");
-					jButtonOFF.setFont(new java.awt.Font("Segoe Print",1,14));
-					jButtonOFF.setVisible(false);
-				}
-					jPanelChangeLayout.setHorizontalGroup(jPanelChangeLayout.createParallelGroup()
-					.addGroup(GroupLayout.Alignment.LEADING, jPanelChangeLayout.createSequentialGroup()
-					    .addComponent(jLabelChangeSensor, 0, 240, Short.MAX_VALUE)
-					    .addContainerGap())
-					.addGroup(jPanelChangeLayout.createSequentialGroup()
-					    .addPreferredGap(jLabelChangeSensor, jLabelChangeGPS, LayoutStyle.ComponentPlacement.INDENT)
-					    .addGroup(jPanelChangeLayout.createParallelGroup()
-					        .addGroup(jPanelChangeLayout.createSequentialGroup()
-					            .addComponent(jLabelChangeGPS, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
-					            .addGap(0, 0, Short.MAX_VALUE))
-					        .addGroup(GroupLayout.Alignment.LEADING, jPanelChangeLayout.createSequentialGroup()
-					            .addGap(0, 16, Short.MAX_VALUE)
-					            .addComponent(jButtonON, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-					            .addGap(37)
-					            .addComponent(jButtonOFF, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-					            .addGap(18)))
-					    .addContainerGap(21, 21)));
+					{
+						jLabelChangeS = new JLabel();
+						jLabelChangeS.setText("Change of sensor state");
+						jLabelChangeS.setFont(new java.awt.Font("Segoe Print",1,14));
+						jLabelChangeS.setVisible(false);
+					}
+					{
+						jLabelChangeG = new JLabel();
+						jLabelChangeG.setText("Change of GPS state");
+						jLabelChangeG.setFont(new java.awt.Font("Segoe Print",1,14));
+						jLabelChangeG.setVisible(false);
+					}
+					{
+						jLabelChooseC = new JLabel();
+						jLabelChooseC.setText("Choose sensor:");
+						jLabelChooseC.setFont(new java.awt.Font("Segoe Print",1,12));
+						jLabelChooseC.setVisible(false);
+					}
+					{
+						jTextFieldChooseS = new JTextField();
+						jTextFieldChooseS.setVisible(false);
+					}
+					{
+						jButtonON = new JButton();
+						jButtonON.setText("ON");
+						jButtonON.setFont(new java.awt.Font("Segoe Print",1,12));
+						jButtonON.addActionListener(this);
+						jButtonON.setEnabled(false);
+					}
+					{
+						jButtonOFF = new JButton();
+						jButtonOFF.setText("OFF");
+						jButtonOFF.setFont(new java.awt.Font("Segoe Print",1,12));
+						jButtonOFF.addActionListener(this);
+						jButtonOFF.setEnabled(false);
+					}
+					jPanelChangeLayout.setHorizontalGroup(jPanelChangeLayout.createSequentialGroup()
+						.addContainerGap(19, 19)
+						.addGroup(jPanelChangeLayout.createParallelGroup()
+						    .addGroup(GroupLayout.Alignment.LEADING, jPanelChangeLayout.createSequentialGroup()
+						        .addComponent(jLabelChooseC, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
+						        .addGap(0, 49, Short.MAX_VALUE)
+						        .addComponent(jButtonOFF, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+						    .addGroup(jPanelChangeLayout.createSequentialGroup()
+						        .addGap(29)
+						        .addGroup(jPanelChangeLayout.createParallelGroup()
+						            .addGroup(GroupLayout.Alignment.LEADING, jPanelChangeLayout.createSequentialGroup()
+						                .addComponent(jLabelChangeS, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+						                .addGap(0, 13, Short.MAX_VALUE))
+						            .addGroup(GroupLayout.Alignment.LEADING, jPanelChangeLayout.createSequentialGroup()
+						                .addComponent(jLabelChangeG, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+						                .addGap(0, 16, Short.MAX_VALUE))
+						            .addGroup(GroupLayout.Alignment.LEADING, jPanelChangeLayout.createSequentialGroup()
+						                .addComponent(jButtonON, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+						                .addGap(22)
+						                .addComponent(jTextFieldChooseS, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+						                .addGap(0, 0, Short.MAX_VALUE)))))
+						.addContainerGap(64, 64));
 					jPanelChangeLayout.setVerticalGroup(jPanelChangeLayout.createSequentialGroup()
-					.addComponent(jLabelChangeSensor, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					.addComponent(jLabelChangeGPS, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addGap(53)
-					.addGroup(jPanelChangeLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-					    .addComponent(jButtonON, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-					    .addComponent(jButtonOFF, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(57, 57));
+						.addComponent(jLabelChangeS, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jLabelChangeG, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(23)
+						.addGroup(jPanelChangeLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						    .addComponent(jTextFieldChooseS, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						    .addComponent(jLabelChooseC, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addGap(33)
+						.addGroup(jPanelChangeLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+						    .addComponent(jButtonON, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						    .addComponent(jButtonOFF, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addContainerGap(73, 73));
 				}
 				{
 					jButtonExit = new JButton();
@@ -407,93 +430,76 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					.addContainerGap()
 					.addGroup(jPanelListSensorLayout.createParallelGroup()
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					        .addComponent(jLabelHistory, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-					        .addGap(9))
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
 					        .addGroup(jPanelListSensorLayout.createParallelGroup()
+					            .addComponent(jTextFieldChoose, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
 					            .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					                .addGap(29)
-					                .addComponent(jLabelChoose, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
-					            .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					                .addComponent(jTextFieldChoose, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-					                .addGap(24)))
-					        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-					        .addComponent(jButtonOKh, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)))
-					.addGap(42)
-					.addGroup(jPanelListSensorLayout.createParallelGroup()
-					    .addGroup(jPanelListSensorLayout.createSequentialGroup()
-					        .addComponent(jTableSensor, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 0, Short.MAX_VALUE))
-					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
+					                .addComponent(jLabelChoose, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
 					        .addGap(26)
+					        .addComponent(jButtonOKh, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE))
+					    .addComponent(jLabelHistory, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+					.addGroup(jPanelListSensorLayout.createParallelGroup()
+					    .addComponent(jTableSensor, GroupLayout.Alignment.LEADING, 0, 353, Short.MAX_VALUE)
+					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
+					        .addGap(68)
 					        .addComponent(jLabelListSensor, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					        .addGap(0, 21, Short.MAX_VALUE)))
+					        .addGap(0, 182, Short.MAX_VALUE)))
 					.addContainerGap());
 					jPanelListSensorLayout.setVerticalGroup(jPanelListSensorLayout.createSequentialGroup()
 					.addContainerGap(27, 27)
 					.addGroup(jPanelListSensorLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 					    .addComponent(jLabelListSensor, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 					    .addComponent(jLabelHistory, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-					.addGap(19)
+					.addGap(24)
 					.addGroup(jPanelListSensorLayout.createParallelGroup()
 					    .addGroup(jPanelListSensorLayout.createSequentialGroup()
 					        .addComponent(jTableSensor, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
 					        .addGap(0, 0, Short.MAX_VALUE))
 					    .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					        .addGap(27)
+					        .addGap(26)
 					        .addComponent(jLabelChoose, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					        .addGap(20)
-					        .addGroup(jPanelListSensorLayout.createParallelGroup()
-					            .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					                .addComponent(jButtonOKh, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					                .addGap(0, 6, Short.MAX_VALUE))
-					            .addGroup(GroupLayout.Alignment.LEADING, jPanelListSensorLayout.createSequentialGroup()
-					                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-					                .addComponent(jTextFieldChoose, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-					                .addGap(0, 0, Short.MAX_VALUE)))
-					        .addGap(17)))
-					.addContainerGap(38, 38));
+					        .addGap(16)
+					        .addGroup(jPanelListSensorLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					            .addComponent(jTextFieldChoose, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+					            .addComponent(jButtonOKh, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					        .addGap(27)))
+					.addContainerGap(33, 33));
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(jPanelChange, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-				        .addGap(52))
+				        .addComponent(jPanelChange, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+				        .addGap(38))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				        .addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 				        .addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)))
-				.addGap(24)
+				.addGap(22)
 				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jPanelListSensor, GroupLayout.Alignment.LEADING, 0, 219, Short.MAX_VALUE)
+				    .addComponent(jPanelListSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addGap(0, 182, Short.MAX_VALUE)
+				        .addGap(182)
 				        .addComponent(jButtonExit, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 				        .addGap(14)))
-				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE));
+				.addComponent(statusBar, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE));
 			thisLayout.setHorizontalGroup(thisLayout.createParallelGroup()
-				.addGroup(thisLayout.createSequentialGroup()
+				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				    .addComponent(jPanelListSensor, GroupLayout.PREFERRED_SIZE, 629, GroupLayout.PREFERRED_SIZE)
+				    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				    .addComponent(jButtonExit, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+				    .addGap(0, 21, Short.MAX_VALUE))
+				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				    .addGroup(thisLayout.createParallelGroup()
 				        .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 445, GroupLayout.PREFERRED_SIZE)
-				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				            .addComponent(jPanelListSensor, GroupLayout.PREFERRED_SIZE, 418, GroupLayout.PREFERRED_SIZE)
-				            .addGap(27))
 				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				            .addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
 				            .addGap(82))
 				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
 				            .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
 				            .addGap(82)))
-				    .addGroup(thisLayout.createParallelGroup()
-				        .addComponent(jPanelChange, GroupLayout.Alignment.LEADING, 0, 252, Short.MAX_VALUE)
-				        .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				            .addGap(140)
-				            .addComponent(jButtonExit, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-				            .addGap(28))))
-				.addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				    .addComponent(statusBar, 0, 690, Short.MAX_VALUE)
-				    .addGap(7)));
+				    .addComponent(jPanelChange, 0, 295, Short.MAX_VALUE))
+				.addComponent(statusBar, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 740, GroupLayout.PREFERRED_SIZE));
 			pack();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -649,9 +655,28 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 			
 		}
-		if(target == jButtonOFF)
+		if ((target == jButtonON) )
 		{
-			
+	
+			String resp =null;
+			try 
+			{
+				sm.Escribir("GPSON \r\n");
+				resp = sm.Leer();
+				System.out.println(resp);
+				if (resp.startsWith("409")) 
+				{
+					statusBar.setText(resp);
+				}
+				else if (resp.startsWith("205"))
+				{
+					statusBar.setText(resp);
+				} 
+			}
+			catch(IOException ex) 
+			{
+				System.err.println(ex);
+			}
 		}
 		if(target == jButtonExit)
 		{			
@@ -679,6 +704,132 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				e1.printStackTrace();
 			}			
 		}
+		if (target == jButtonON)
+		{
+			if (change == "gps")
+			{		
+				
+				String resp =null;
+				try 
+				{
+					sm.Escribir("GPSON \r\n");
+					resp = sm.Leer();
+					System.out.println(resp);
+					if (resp.startsWith("409")) 
+					{
+						statusBar.setText(resp);
+					}
+					else if (resp.startsWith("205"))
+					{
+						statusBar.setText(resp);
+					} 
+				}
+				catch(IOException ex) 
+				{
+					System.err.println(ex);
+				}
+			}
+			else if ( change == "sensor")
+			{
+				String resp =null;
+				String idSensor = jTextFieldUser.getText();
+				try 
+				{
+					System.out.println("Estamos dentro del boton ON");
+					sm.Escribir("ON " + idSensor + "\r\n");
+					System.out.println(idSensor.toString());
+					resp = sm.Leer();
+					System.out.println(resp);
+					if (resp.startsWith("418")) 
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					}
+					else if (resp.startsWith("OK,"))
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					} 
+					else if (resp.startsWith("417"))
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					}
+					else if (resp.startsWith("ERR,"))
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					}
+				}
+				catch(IOException ex) 
+				{
+					System.err.println(ex);
+					jTextFieldChooseS.setText("");
+				}
+			}
+		}
+		if(target == jButtonOFF)
+		{
+			if(change =="sensor")
+			{
+				String resp =null;
+				String idSensor = jTextFieldUser.getText();
+				try 
+				{
+					sm.Escribir("OFF " + idSensor + "\r\n");
+					resp = sm.Leer();
+					System.out.println(resp);
+					if (resp.startsWith("419")) 
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					}
+					else if (resp.startsWith("OK,"))
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					} 
+					else if (resp.startsWith("417"))
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					}
+					else if (resp.startsWith("ERR,"))
+					{
+						statusBar.setText(resp);
+						jTextFieldChooseS.setText("");
+					}
+				}
+				catch(IOException ex) 
+				{
+					System.err.println(ex);
+					jTextFieldChooseS.setText("");
+				}
+			}
+			else if (change == "gps")
+			{
+				String resp =null;
+				try 
+				{
+					sm.Escribir("GPSOFF \r\n");
+					resp = sm.Leer();
+					System.out.println(resp);
+					if (resp.startsWith("206")) 
+					{
+						statusBar.setText(resp);
+					}
+					else if (resp.startsWith("420"))
+					{
+						statusBar.setText(resp);
+					} 
+				}
+				catch(IOException ex) 
+				{
+					System.err.println(ex);
+				}
+			}
+		}
+
 		if (target == jButtonOK)
 		{
 				if(jComboBoxMenu.getSelectedIndex()==1)
@@ -718,31 +869,46 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 				else if(jComboBoxMenu.getSelectedIndex()==3)
 				{
-					jLabelChangeSensor.setVisible(true);
-					jLabelChangeGPS.setVisible(false);
-					jButtonOFF.setVisible(true);
-					jButtonON.setVisible(true);
+					change = "sensor";			
+					jLabelChangeS.setVisible(true);
+					jLabelChangeG.setVisible(false);
+					jLabelChooseC.setVisible(true);
+					jTextFieldChooseS.setVisible(true);
+					System.out.println("Estamos dentro del sensor activate");
+					jButtonOFF.setEnabled(false);
+					jButtonON.setEnabled(true);									
 				}
 				else if(jComboBoxMenu.getSelectedIndex()==4)
 				{
-					jLabelChangeSensor.setVisible(true);
-					jLabelChangeGPS.setVisible(false);
-					jButtonOFF.setVisible(true);
-					jButtonON.setVisible(true);
+					change = "sensor";
+					jLabelChangeS.setVisible(true);
+					jLabelChangeG.setVisible(false);
+					jButtonOFF.setEnabled(true);
+					jButtonON.setEnabled(false);
+					jLabelChooseC.setVisible(true);
+					jTextFieldChooseS.setVisible(true);
+		
 				}
 				else if(jComboBoxMenu.getSelectedIndex()==5)
 				{
-					jLabelChangeSensor.setVisible(false);
-					jLabelChangeGPS.setVisible(true);
-					jButtonOFF.setVisible(true);
-					jButtonON.setVisible(true);
+					change = "gps";
+					jLabelChangeS.setVisible(false);
+					jLabelChangeG.setVisible(true);
+					jButtonOFF.setEnabled(false);
+					jButtonON.setEnabled(true);
+					
+					
 				}
 				else if(jComboBoxMenu.getSelectedIndex()==6)
 				{
-					jLabelChangeSensor.setVisible(false);
-					jLabelChangeGPS.setVisible(true);
-					jButtonOFF.setVisible(true);
-					jButtonON.setVisible(true);
+					change = "gps";
+					jLabelChangeS.setVisible(false);
+					jLabelChangeG.setVisible(true);
+					jButtonOFF.setEnabled(true);
+					jButtonOFF.setEnabled(true);
+					jButtonON.setEnabled(false);
+					
+					
 				}				
 			}
 		}	
