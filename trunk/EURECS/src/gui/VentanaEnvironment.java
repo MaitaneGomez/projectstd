@@ -7,6 +7,7 @@ import java.net.Socket;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -82,6 +83,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 	private JTextField jTextFieldUser;
 	private static SocketManager sm;
 	private String change = "nada";
+	private JLabel jLabelFondo;
 
 
 	/**
@@ -119,10 +121,18 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		try {
 			GroupLayout thisLayout = new GroupLayout((JComponent)getContentPane());
 			getContentPane().setLayout(thisLayout);
+			jLabelFondo = new JLabel();
+            getContentPane().add(jLabelFondo);
+            jLabelFondo.setText(" ");
+            jLabelFondo.setBounds(0, 0, 792, 566);
+            jLabelFondo.setIcon(new ImageIcon("image/argoitztxiki007.jpg"));
+
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			this.setTitle("Environmental Quality Remote Control System");
 			{
+				
 				jPanelUp = new JPanel();
+				jPanelUp.setOpaque(false);
 				GroupLayout jPanelUpLayout = new GroupLayout((JComponent)jPanelUp);
 				jPanelUp.setLayout(jPanelUpLayout);
 				{
@@ -191,6 +201,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 			{
 				jPanelMiddle = new JPanel();
+				jPanelMiddle.setOpaque(false);
 				GroupLayout jPanelMiddleLayout = new GroupLayout((JComponent)jPanelMiddle);
 				jPanelMiddle.setLayout(jPanelMiddleLayout);
 				{
@@ -242,6 +253,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 				{
 					jPanelMenu = new JPanel();
+					jPanelMenu.setOpaque(false);
 					GroupLayout jPanelMenuLayout = new GroupLayout((JComponent)jPanelMenu);
 					jPanelMenu.setLayout(jPanelMenuLayout);
 					jPanelMenu.setFont(new java.awt.Font("Segoe Print",1,14));
@@ -302,6 +314,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 				{
 					jPanelCurvalue = new JPanel();
+					jPanelCurvalue.setOpaque(false);
 					GroupLayout jPanelCurvalueLayout = new GroupLayout((JComponent)jPanelCurvalue);
 					jPanelCurvalue.setLayout(jPanelCurvalueLayout);
 					
@@ -367,6 +380,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 				{
 					jPanelChange = new JPanel();
+					jPanelChange.setOpaque(false);
 					GroupLayout jPanelChangeLayout = new GroupLayout((JComponent)jPanelChange);
 					jPanelChange.setLayout(jPanelChangeLayout);
 					{
@@ -449,6 +463,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 				{
 					jPanelListSensor = new JPanel();
+					jPanelListSensor.setOpaque(false);
 					GroupLayout jPanelListSensorLayout = new GroupLayout((JComponent)jPanelListSensor);
 					jPanelListSensor.setLayout(jPanelListSensorLayout);
 				{
@@ -539,13 +554,15 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jPanelUp, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jPanelChange, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-				.addGroup(thisLayout.createParallelGroup()
-				    .addComponent(jPanelMiddle, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(jPanelCurvalue, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
-				.addGap(22)
-				.addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelChange, 0, 147, Short.MAX_VALUE)
+				        .addComponent(jPanelCurvalue, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+				        .addGap(112))
+				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
+				        .addComponent(jPanelUp, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(jPanelMiddle, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+				        .addGap(0, 22, Short.MAX_VALUE)
+				        .addComponent(jPanelMenu, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)))
 				.addGroup(thisLayout.createParallelGroup()
 				    .addComponent(jPanelListSensor, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
@@ -727,7 +744,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			}
 			
 		}
-		if ((target == jButtonON) )
+		/*if ((target == jButtonON) )
 		{
 	
 			String resp =null;
@@ -749,7 +766,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 			{
 				System.err.println(ex);
 			}
-		}
+		}*/
 		if(target == jButtonExit)
 		{			
 			try 
@@ -776,40 +793,15 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				e1.printStackTrace();
 			}			
 		}
-		if (target == jButtonON)
+		if(target == jButtonON)
 		{
-			if (change == "gps")
-			{		
-				
-				String resp =null;
-				try 
-				{
-					sm.Escribir("GPSON \r\n");
-					resp = sm.Leer();
-					System.out.println(resp);
-					if (resp.startsWith("409")) 
-					{
-						statusBar.setText(resp);
-					}
-					else if (resp.startsWith("205"))
-					{
-						statusBar.setText(resp);
-					} 
-				}
-				catch(IOException ex) 
-				{
-					System.err.println(ex);
-				}
-			}
-			else if ( change == "sensor")
+			if(change =="sensor")
 			{
 				String resp =null;
 				String idSensor = jTextFieldChooseS.getText();
 				try 
 				{
-					System.out.println("Estamos dentro del boton ON");
 					sm.Escribir("ON " + idSensor + "\r\n");
-					System.out.println(idSensor.toString());
 					resp = sm.Leer();
 					System.out.println(resp);
 					if (resp.startsWith("418")) 
@@ -817,7 +809,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 						statusBar.setText(resp);
 						jTextFieldChooseS.setText("");
 					}
-					else if (resp.startsWith("OK,"))
+					else if (resp.startsWith("203"))
 					{
 						statusBar.setText(resp);
 						jTextFieldChooseS.setText("");
@@ -839,13 +831,35 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 					jTextFieldChooseS.setText("");
 				}
 			}
+			else if (change == "gps")
+			{
+				String resp =null;
+				try 
+				{
+					sm.Escribir("GPSON \r\n");
+					resp = sm.Leer();
+					System.out.println(resp);
+					if (resp.startsWith("205")) 
+					{
+						statusBar.setText(resp);
+					}
+					else if (resp.startsWith("409"))
+					{
+						statusBar.setText(resp);
+					} 
+				}
+				catch(IOException ex) 
+				{
+					System.err.println(ex);
+				}
+			}
 		}
 		if(target == jButtonOFF)
 		{
 			if(change =="sensor")
 			{
 				String resp =null;
-				String idSensor = jTextFieldUser.getText();
+				String idSensor = jTextFieldChooseS.getText();
 				try 
 				{
 					sm.Escribir("OFF " + idSensor + "\r\n");
@@ -856,7 +870,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 						statusBar.setText(resp);
 						jTextFieldChooseS.setText("");
 					}
-					else if (resp.startsWith("OK,"))
+					else if (resp.startsWith("204"))
 					{
 						statusBar.setText(resp);
 						jTextFieldChooseS.setText("");
@@ -905,12 +919,14 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 		if(target ==jButtonOKc)
 		{
 			String resp =null;
-			String idSensor = jTextFieldUser.getText();
+			String idSensor = jTextFieldChooseSC.getText();
 			try 
 			{
 				sm.Escribir("GET_CURVALUE " + idSensor + "\r\n");
+				
 				resp = sm.Leer();
 				System.out.println(resp);
+				
 				if (resp.startsWith("416")) 
 				{
 					statusBar.setText(resp);
@@ -918,6 +934,7 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
 				}
 				else if (resp.startsWith("114"))
 				{
+					jTextFieldCurvalue.setText(resp);
 					statusBar.setText(resp);
 					jTextFieldChooseSC.setText("");
 				} 

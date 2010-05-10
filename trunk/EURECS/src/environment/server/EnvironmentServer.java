@@ -192,28 +192,25 @@ public class EnvironmentServer implements Runnable
 							
 							if (command.equalsIgnoreCase("ON"))
 					  		{
-					  			try
+								try
 					  			{
 					  				boolean p=false;
 						  			idSensor = token.nextToken();
 						  			if(DB.checkSensor(idSensor,ip))
 						  			{
 							  			p = DB.getState(idSensor);
-							  			//System.out.println("Estado del sensor" + DB.getState(idSensor));
-							  			//System.out.println("Valor de p" + p);
-							  			if(p)
+							  			if(p==false)
 							  			{
-							  				sm.Escribir("418 ERROR Sensor already activated " + "\n");
+							  				DB.changeState(idSensor,p);
+							  				sm.Escribir("203 OK Sensor activated" + "\n");
 							  			}
 							  			else
 							  			{
-							  				DB.changeState(idSensor,p);
-							  				//y si el sensor que ha escrito esta mal?					  				
+							  				sm.Escribir("418 ERR Sensor already activated \n");
 							  			}	
 						  			}
 						  			else sm.Escribir("417 ERR Unknown sensor");
-						  		}
-					  			
+						  		}					  			
 					  			catch(Exception e)
 					  			{
 					  				sm.Escribir("ERR, missing sensor parameter \n");
@@ -231,7 +228,7 @@ public class EnvironmentServer implements Runnable
 							  			if(p)
 							  			{
 							  				DB.changeState(idSensor,p);
-							  				sm.Escribir("OK Sensor desactivated" + "\n");
+							  				sm.Escribir("204 OK Sensor desactivated" + "\n");
 							  			}
 							  			else
 							  			{
@@ -248,30 +245,28 @@ public class EnvironmentServer implements Runnable
 					  		}
 							if (command.equalsIgnoreCase("GPSON"))
 							{
-								boolean p=false;
 								boolean gps = DB.getGps(ip);
-						  		if(gps)
+						  		if(gps==true)
 						  		{
 						  			sm.Escribir("409 ERROR GPS already activated \n");
 						  		}
-						  		else
+						  		else if (gps==false)
 						  		{
-						  			DB.changeGps(ip,p);
+						  			DB.changeGps(ip,gps);
 						  			sm.Escribir("205 OK GPS activated \n");
 						  		}	
 							}
 							
 							if (command.equalsIgnoreCase("GPSOFF"))
 							{
-								boolean p=false;
 								boolean gps = DB.getGps(ip);
-						  		if(!gps)
+						  		if(gps==true)
 						  		{
-						  			DB.changeGps(ip,p);
+						  			DB.changeGps(ip,gps);
 						  			sm.Escribir("206 OK GPS desactivated \n");
 						  			
 						  		}
-						  		else
+						  		else if (gps==false)
 						  		{
 						  			sm.Escribir("420 ERR GPS already desactivated \n");
 						  		}	
@@ -280,17 +275,18 @@ public class EnvironmentServer implements Runnable
 							{
 								try
 					  			{
-					  				boolean p=false;
+					  				boolean p;
 						  			idSensor = token.nextToken();
 						  			if(DB.checkSensor(idSensor,ip))
 						  			{
 							  			p = DB.getState(idSensor);
-							  			if(!p)
+							  			if(p==false)
 							  			{
 							  				sm.Escribir("416 ERR Sensor is not active \n");
 							  			}
-							  			else
+							  			else if (p==true)
 							  			{
+							  				System.out.println("llego a escribir el curvalue");
 							  				sm.Escribir("114 OK " + DB.getCurvalue(idSensor));
 							  			}	
 						  			}
@@ -298,7 +294,7 @@ public class EnvironmentServer implements Runnable
 						  		}
 								catch(Exception e)
 								{
-									sm.Escribir("415 ERR Missing  parameter sensor_id \n");
+									sm.Escribir("415 ERR Missing  parameter id Sensor \n");
 								}
 							}
 							if(command.equalsIgnoreCase("GET_PIC"))

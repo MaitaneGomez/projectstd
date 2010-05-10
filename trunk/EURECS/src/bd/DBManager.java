@@ -14,7 +14,7 @@ import java.util.Vector;
 public class DBManager 
 {
 	private Connection con;
-	private boolean p=false;
+	private boolean p;
 		
 	public DBManager()
 	{
@@ -122,7 +122,8 @@ public class DBManager
 			{
 				mens= "Date: " + rs.getString("Date") + "; Time: " + rs.getString("Time") + "; Coords: " + rs.getString("Coord") + ": Value: " + rs.getString("Value");
 				measurements.add(mens);
-			}		
+			}
+			stmt.close();
 		} 
 		catch (SQLException e) 
 		{
@@ -139,13 +140,11 @@ public class DBManager
 		try 
 		{
 			Statement stmt= con.createStatement();
-			System.out.println("Antes de entrar a la select");
-			String query = ("SELECT * FROM Sensors WHERE idSensor = '" + idSensor + "'");
-			System.out.println("Despues de ejecutar la select");
+			String query = ("SELECT * FROM Sensors WHERE ID_S = '" + idSensor + "'");
 			ResultSet rs= stmt.executeQuery(query);
 			String state="";
 			if (rs.next())
-				state = rs.getString("state");
+				state = rs.getString("State");
 			if (state.equalsIgnoreCase("ON"))
 				p = true;
 			else p = false;
@@ -173,14 +172,18 @@ public class DBManager
 		{
 			Statement stmt= con.createStatement();
 			
-			if (p = true)
+			System.out.println(idSensor + " " + p);
+			
+			if (p == true)
 			{
-				stmt.executeUpdate("UPDATE Sensors SET State = 'OFF' WHERE idSensor = '" + idSensor);
+				stmt.executeUpdate("UPDATE Sensors SET State = '" + "OFF" + "' WHERE ID_S = '" + idSensor + "'");
 			}
 			else
 			{
-				stmt.executeUpdate("UPDATE Sensors SET State = 'ON' WHERE idSensor = '" + idSensor);
+				stmt.executeUpdate("UPDATE Sensors SET State = '" + "ON" + "' WHERE ID_S = '" + idSensor + "'");
 			}
+			
+			stmt.close();
 		}
 		catch(SQLException e)
 		{
@@ -197,12 +200,14 @@ public class DBManager
 			String query = ("SELECT * FROM Sensors WHERE ID_S = '"+ idSensor + "' AND ID_V = (SELECT ID_V FROM Vehicles WHERE IP = '"+ ip + "')");
 			ResultSet rs= stmt.executeQuery(query);
 			p=rs.next();
-			rs.close();			
+			rs.close();	
+			stmt.close();
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
+		
 		return p;
 	}
 	
@@ -211,15 +216,15 @@ public class DBManager
 		try
 		{
 			Statement stmt= con.createStatement();
-			 String query = ("SELECT * FROM Gps WHERE ID_V = ( SELECT ID_V FROM Vehicles WHERE IP= '"+ ip + "')");
+			String query = ("SELECT * FROM GPS WHERE ID_V = ( SELECT ID_V FROM Vehicles WHERE IP = '"+ ip + "')");
 			ResultSet rs= stmt.executeQuery(query);
 			String state="";
 			if (rs.next())
-				state = rs.getString("state");
+				state = rs.getString("State");
 			if (state.equalsIgnoreCase("ON"))
 				p = true;
 			else p = false;
-			rs.close();	
+			stmt.close();	
 		}
 		
 		catch (SQLException e) 
@@ -236,14 +241,15 @@ public class DBManager
 		{
 			Statement stmt= con.createStatement();
 			
-			if (p = true)
+			if (p == true)
 			{
-				stmt.executeUpdate("UPDATE Gps SET State = 'OFF' WHERE gps_id = (SELECT gps_id FROM Vehicles WHERE ip = '" + ip +"')");
+				stmt.executeUpdate("UPDATE GPS SET State = '" + "OFF" + "' WHERE ID_V = (SELECT ID_V FROM Vehicles WHERE IP = '" + ip +"')");
 			}
 			else
 			{
-				stmt.executeUpdate("UPDATE Gps SET State = 'ON' WHERE gps_id = (SELECT gps_id FROM Vehicles WHERE ip = '" + ip + "')");
+				stmt.executeUpdate("UPDATE GPS SET State = '" + "ON" + "' WHERE ID_V = (SELECT ID_V FROM Vehicles WHERE IP = '" + ip + "')");
 			}
+			stmt.close();
 		}
 		catch(SQLException e)
 		{
@@ -272,21 +278,23 @@ public class DBManager
 			segundos = c.get(Calendar.SECOND);
 						
 			Statement stmt= con.createStatement();
-			String query1 = ("SELECT VALUE FROM Sensors WHERE ID_S = '" + idSensor + "'");
-			String query2 = ("SELECT COORD FROM GPS WHERE ID_V = (SELECT ID_V FROM Sensors WHERE ID_S = '" + idSensor + "')");
+			String query1 = ("SELECT CurValue FROM Sensors WHERE ID_S = '" + idSensor + "'");
 			ResultSet rs1= stmt.executeQuery(query1);
-			ResultSet rs2= stmt.executeQuery(query2);
-			
 			rs1.next();
 			value = rs1.getString(1);
+			
+			String query2 = ("SELECT COORD FROM GPS WHERE ID_V = (SELECT ID_V FROM Sensors WHERE ID_S = '" + idSensor + "')");
+			ResultSet rs2= stmt.executeQuery(query2);
 			rs2.next();
 			coord = rs2.getString(1);
 			
-			curvalue= dia + "/" + mes + "/" + annio + ";" + hora + ":" + minutos + ":" + segundos + ";" + coord + ";" + value;					
+			curvalue= dia + "/" + mes + "/" + annio + ";" + hora + ":" + minutos + ":" + segundos + ";" + coord + ";" + value;
+			stmt.close();
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
+			System.out.println("ERROR en el current value");
 		}
 		
 		return curvalue;
@@ -302,7 +310,7 @@ public class DBManager
 			ResultSet rs= stmt.executeQuery(query);
 			rs.next();
 			picture = rs.getString("Picture");
-			rs.close();			
+			stmt.close();			
 		} 
 		catch (SQLException e) 
 		{			
@@ -322,7 +330,7 @@ public class DBManager
 			ResultSet rs = stmt.executeQuery(query);
 			rs.next();
 			coord = rs.getString("Coord");
-			rs.close();
+			stmt.close();
 		}
 		catch (SQLException e) 
 		{			
