@@ -1,6 +1,8 @@
 package environment.server;
 
 import java.io.IOException;
+import java.util.Random;
+import java.net.Socket;
 import java.util.StringTokenizer;
 import java.util.Vector;
 import bd.DBManager;
@@ -58,7 +60,6 @@ public class EnvironmentServer implements Runnable
 							// si no exis<te en la bd "401 ERR Missing username parameter"							
 							if(command.equalsIgnoreCase("USER"))
 							{
-								
 								//Ahora miramos en la BD si existe el user 
 								//si es que si pues sacamos "201 OK Welcome Mikel"
 								// si no existe en la bd "401 ERR Missing username parameter"
@@ -317,9 +318,35 @@ public class EnvironmentServer implements Runnable
 						{
 							if(command.equalsIgnoreCase("GET_LOC"))
 							{
-								sm.Escribir("114 OK " + DB.getCoord(ip) );
-								state = 3;
-								//getCoord
+                                if(DB.getGps(ip) == true)
+                                {
+                                	String coord = DB.getCoord(ip);
+                                	sm.Escribir("114 OK " + coord + "\n");
+                                }
+                                else
+                                {
+                                	Socket gridSocket = new Socket("127.0.0.1", 3005);
+                                	SocketManager sockM = new SocketManager(gridSocket);
+                                	
+                                	sockM.Escribir("USER " + user + "\n");
+                                	System.out.println(sockM.Leer());
+                                	
+                                	sockM.Escribir("PASS " + password + "\n");
+                                	System.out.println(sockM.Leer());
+                                	
+                                	
+                                	Random r= new Random();//Para elegir la actual al azar                               
+                                	int cell= r.nextInt(4);                                	
+                                	sockM.Escribir("GET_COOR " + cell + "\n");
+                                	sm.Escribir(sockM.Leer() + "\n");
+                                	sockM.Escribir("QUIT" + "\n");
+                                	
+                                	sockM.CerrarSocket();
+                                	sockM.CerrarStreams();
+                                }
+                               
+                                state = 3;
+
 							}
 						}
 					}

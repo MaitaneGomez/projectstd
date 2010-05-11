@@ -152,10 +152,9 @@ public class VentanaEnvironment extends javax.swing.JFrame implements  ActionLis
                     			jLabelUser.setText("User :");
                     			jPanelUp.add(jLabelUser);
                     			jLabelUser.setFont(new java.awt.Font("Segoe Print",1,14));
-                    			jLabelUser.setEnabled(true);
+                    			jLabelUser.setEnabled(false);
                     			jLabelUser.setVisible(true);
                     			jLabelUser.setOpaque(false);
-                    			jLabelUser.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
                     		}
                     		{
                     			jButtonLogPass = new JButton();

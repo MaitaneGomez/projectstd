@@ -361,15 +361,15 @@ public class DBManager
         boolean result = false;
         try
         {
-                stmt = con.createStatement();
-                query = "SELECT * FROM GRID WHERE GRIDID = '" + cellID + "'";
-                rs = stmt.executeQuery(query);
-                result = rs.next();
-                stmt.close();
+        	stmt = con.createStatement();
+        	query = "SELECT * FROM GSM WHERE Cell_ID = '" + cellID + "'";
+        	rs = stmt.executeQuery(query);
+        	result = rs.next();
+        	stmt.close();
         }
         catch (SQLException e) 
         {
-                e.printStackTrace();    
+        	e.printStackTrace();    
         }
         return result;
 
@@ -384,13 +384,12 @@ public class DBManager
         
         try
         {
-                stmt = con.createStatement();
-                query = "SELECT COORD FROM GRID WHERE GRIDID = '" + cellID + "'";
-                rs = stmt.executeQuery(query);
-                rs.next();
-                coord = rs.getString(1);
-                coord = getCoord(coord);
-                stmt.close();
+        	stmt = con.createStatement();
+        	query = "SELECT Coords FROM GSM WHERE Cell_ID = '" + cellID + "'";
+        	rs = stmt.executeQuery(query);
+        	rs.next();
+        	coord = rs.getString(1);
+        	stmt.close();
         }
         catch (SQLException e) 
         {
