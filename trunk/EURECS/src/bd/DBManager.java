@@ -353,14 +353,51 @@ public class DBManager
 		}
 	}
 
-	public boolean checkCell(String cellID) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean checkCell(String cellID) 
+	{
+		Statement stmt = null;
+        String query = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try
+        {
+                stmt = con.createStatement();
+                query = "SELECT * FROM GRID WHERE GRIDID = '" + cellID + "'";
+                rs = stmt.executeQuery(query);
+                result = rs.next();
+                stmt.close();
+        }
+        catch (SQLException e) 
+        {
+                e.printStackTrace();    
+        }
+        return result;
+
 	}
 
-	public String getCoords(String cellID) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getCoordCell(String cellID) 
+	{
+		Statement stmt= null;
+        String query = null;
+        ResultSet rs = null;
+        String coord = null;
+        
+        try
+        {
+                stmt = con.createStatement();
+                query = "SELECT COORD FROM GRID WHERE GRIDID = '" + cellID + "'";
+                rs = stmt.executeQuery(query);
+                rs.next();
+                coord = rs.getString(1);
+                coord = getCoord(coord);
+                stmt.close();
+        }
+        catch (SQLException e) 
+        {
+                // Auto-generated catch block
+                e.printStackTrace();    
+        }
+        return coord;
 	}
 }
 

@@ -103,11 +103,11 @@ final class EnvServerG implements Runnable
                                                       try
                                                       {
                                                               String cellID = token.nextToken();
-                                                              boolean verification = DB.checkCell(cellID);
-                                                              if (verification == true)
+                                                              boolean resp = DB.checkCell(cellID);
+                                                              if (resp == true)
                                                               {
                                                                       
-                                                                      String coord = DB.getCoords(cellID);
+                                                                      String coord = DB.getCoordCell(cellID);
                                                                       sm.Escribir("114 OK "+ coord + "\n");
                                                               }
                                                               else
