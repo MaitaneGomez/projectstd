@@ -352,6 +352,16 @@ public class DBManager
 			System.out.println("Disconnection fail");
 		}
 	}
+
+	public boolean checkCell(String cellID) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String getCoords(String cellID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 	
